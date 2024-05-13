@@ -1,9 +1,8 @@
-import React from "react";
 import cn from "classnames";
-
-import { ITextAnchorProps } from "./TextAnchor.interface";
+import React from "react";
 import { Link } from "react-router-dom";
 
+import { ITextAnchorProps } from "./TextAnchor.interface";
 import styles from "./TextAnchor.module.scss";
 
 export const TextAnchor: React.FC<ITextAnchorProps> = ({

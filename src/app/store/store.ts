@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { rootReducer } from "./root.reducer";
-
 import { whisperFoxApi } from "@/shared/api";
+
+import { rootReducer } from "./root.reducer";
 
 export const store = configureStore({
 	devTools: import.meta.env.DEV,

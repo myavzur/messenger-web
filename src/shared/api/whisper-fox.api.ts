@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { IAttachment } from "@/entities/attachment/interfaces";
-
-import { getAccessToken, setAccessToken } from "@/shared/lib/helpers";
 import {
-	IUser,
 	IAuthorizationResponse,
 	ILoginBody,
-	IRegisterBody
+	IRegisterBody,
+	IUser
 } from "@/entities/user/interfaces";
+
+import { getAccessToken, setAccessToken } from "@/shared/lib/helpers";
 
 const API_SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 

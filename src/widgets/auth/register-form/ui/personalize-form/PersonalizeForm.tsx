@@ -1,8 +1,9 @@
 import React from "react";
 
-import { IPersonalizeFormProps } from "./PersonalizeForm.interface";
-import { TextField, Button, ButtonGroup, Icon } from "@/shared/ui";
+import { Button, ButtonGroup, Icon, TextField } from "@/shared/ui";
+
 import styles from "../../styles/ContentForm.module.scss";
+import { IPersonalizeFormProps } from "./PersonalizeForm.interface";
 
 export const PersonalizeForm: React.FC<IPersonalizeFormProps> = ({
 	onSubmit,

@@ -9,5 +9,20 @@
   "singleAttributePerLine": true,
   "printWidth": 85,
   "bracketSpacing": true,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+		"^@/app",
+		"^@/processes",
+		"^@/screens",
+		"^@/layouts",
+		"^@/widgets",
+		"^@/features",
+		"^@/entities",
+		"^@/shared",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

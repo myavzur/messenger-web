@@ -1,9 +1,8 @@
-import { forwardRef, useState } from "react";
 import cn from "classnames";
-
-import styles from "./TextField.module.scss";
+import { forwardRef, useState } from "react";
 
 import { ITextFieldProps } from "./TextField.interface";
+import styles from "./TextField.module.scss";
 
 export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 	(props, ref) => {

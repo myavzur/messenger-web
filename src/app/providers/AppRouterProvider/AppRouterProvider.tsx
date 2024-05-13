@@ -1,9 +1,11 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { ProtectedRoute } from "./ProtectedRoute";
-import { PageLoader } from "@/shared/ui";
 import { useAuth } from "@/entities/auth/lib/hooks";
+
+import { PageLoader } from "@/shared/ui";
+
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
 const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));

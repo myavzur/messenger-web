@@ -1,11 +1,9 @@
 import cn from "classnames";
 import React from "react";
 
-import sprite from "./assets/sprite.svg";
-
 import { IIconProps } from "./Icon.interface";
-
 import styles from "./Icon.module.scss";
+import sprite from "./assets/sprite.svg";
 
 export const Icon: React.FC<IIconProps> = ({
 	name,

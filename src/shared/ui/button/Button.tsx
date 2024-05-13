@@ -1,9 +1,10 @@
-import React from "react";
 import cn from "classnames";
+import React from "react";
+
+import { useRippleElements } from "@/shared/lib/hooks";
 
 import { IButtonProps } from "./Button.interface";
 import styles from "./Button.module.scss";
-import { useRippleElements } from "@/shared/lib/hooks";
 
 export const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
 	(props, ref) => {

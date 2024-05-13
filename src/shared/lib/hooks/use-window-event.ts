@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import { useLatestValue } from "./use-latest-value";
 
 type GetWindowEvent<EventName extends string> =

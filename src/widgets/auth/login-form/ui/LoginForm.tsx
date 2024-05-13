@@ -1,5 +1,8 @@
 import React from "react";
 
+import { AuthFormLayout } from "@/entities/auth/ui/auth-form-layout";
+import { CombinedTransferText } from "@/entities/auth/ui/combined-transfer-text";
+
 import {
 	Button,
 	Divider,
@@ -8,8 +11,7 @@ import {
 	TextAnchor,
 	TextField
 } from "@/shared/ui";
-import { AuthFormLayout } from "@/entities/auth/ui/auth-form-layout";
-import { CombinedTransferText } from "@/entities/auth/ui/combined-transfer-text";
+
 import { ILoginFormProps } from "./LoginForm.interface";
 
 export const LoginForm: React.FC<ILoginFormProps> = ({ onSubmit }) => {

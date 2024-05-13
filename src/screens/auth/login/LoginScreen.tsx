@@ -1,7 +1,8 @@
 import React from "react";
 
-import { LoginForm } from "@/widgets/auth/login-form/ui";
 import { AuthLayout } from "@/layouts/auth-layout/ui";
+
+import { LoginForm } from "@/widgets/auth/login-form/ui";
 
 const LoginScreen: React.FC = () => {
 	// const navigate = useNavigate();

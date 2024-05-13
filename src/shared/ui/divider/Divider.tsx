@@ -1,5 +1,5 @@
-import React from "react";
 import cn from "classnames";
+import React from "react";
 
 import { IDividerProps } from "./Divider.interface";
 import styles from "./Divider.module.scss";

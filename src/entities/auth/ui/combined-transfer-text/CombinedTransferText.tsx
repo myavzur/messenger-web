@@ -1,7 +1,8 @@
 import React from "react";
 
-import { ICombinedTransferTextProps } from "./CombinedTransferText.interface";
 import { TextAnchor } from "@/shared/ui";
+
+import { ICombinedTransferTextProps } from "./CombinedTransferText.interface";
 import styles from "./CombinedTransferText.module.scss";
 
 export const CombinedTransferText: React.FC<ICombinedTransferTextProps> = ({

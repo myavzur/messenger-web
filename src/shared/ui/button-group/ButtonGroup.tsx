@@ -1,8 +1,8 @@
+import cn from "classnames";
 import React from "react";
 
 import { IButtonGroupProps } from "./ButtonGroup.interface";
 import styles from "./ButtonGroup.module.scss";
-import cn from "classnames";
 
 export const ButtonGroup: React.FC<IButtonGroupProps> = ({
 	children,

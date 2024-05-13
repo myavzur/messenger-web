@@ -1,8 +1,9 @@
 import React from "react";
 
+import { Logo } from "@/shared/ui";
+
 import { IAuthFormLayoutProps } from "./AuthFormLayout.interface";
 import styles from "./AuthFormLayout.module.scss";
-import { Logo } from "@/shared/ui";
 
 export const AuthFormLayout: React.FC<IAuthFormLayoutProps> = ({
 	onSubmit,

@@ -1,5 +1,5 @@
-import React from "react";
 import cn from "classnames";
+import React from "react";
 
 import { ILogoProps } from "./Logo.interface";
 import styles from "./Logo.module.scss";

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { ICredentialsFormProps } from "./CredentialsForm.interface";
-import { TextField, Button } from "@/shared/ui";
+import { Button, TextField } from "@/shared/ui";
 
 import styles from "../../styles/ContentForm.module.scss";
+import { ICredentialsFormProps } from "./CredentialsForm.interface";
 
 export const CredentialsForm: React.FC<ICredentialsFormProps> = ({ onSubmit }) => {
 	return (

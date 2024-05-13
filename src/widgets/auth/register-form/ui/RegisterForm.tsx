@@ -1,15 +1,18 @@
 import React, { useCallback, useMemo } from "react";
+import { CSSTransition } from "react-transition-group";
 
-import { IRegisterFormProps } from "./RegisterForm.interface";
-import { Divider, SocialButton, Icon } from "@/shared/ui";
-import { CombinedTransferText } from "@/entities/auth/ui/combined-transfer-text";
+import { useSteps } from "@/features/steps/lib/hooks";
+import { Steps } from "@/features/steps/ui";
+
 import { AuthFormLayout } from "@/entities/auth/ui/auth-form-layout";
+import { CombinedTransferText } from "@/entities/auth/ui/combined-transfer-text";
+
+import { Divider, Icon, SocialButton } from "@/shared/ui";
+
+import styles from "../styles/ContentForm.module.scss";
+import { IRegisterFormProps } from "./RegisterForm.interface";
 import { CredentialsForm } from "./credentials-form";
 import { PersonalizeForm } from "./personalize-form";
-import { Steps } from "@/features/steps/ui";
-import { useSteps } from "@/features/steps/lib/hooks";
-import { CSSTransition } from "react-transition-group";
-import styles from "../styles/ContentForm.module.scss";
 
 export const RegisterForm: React.FC<IRegisterFormProps> = () => {
 	const { activeStepIndex, nextStep, previousStep, isFirstStep, isLastStep } =

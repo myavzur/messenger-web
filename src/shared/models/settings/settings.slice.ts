@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import {
-	ITheme,
 	ISetSidebarsContentAction,
-	ISettingsState
+	ISettingsState,
+	ITheme
 } from "./settings.interface";
 
 const initialState: ISettingsState = {
