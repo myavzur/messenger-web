@@ -1,0 +1,36 @@
+body {
+	// * Spacing
+	--space-1: 5px;
+	--space-2: 10px;
+	--space-3: 15px;
+	--space-4: 20px;
+	--space-5: 25px;
+	--space-6: 30px;
+	--space-7: 35px;
+
+	// * Border Radiuses
+	--rounded-1: 5px;
+	--rounded-2: 10px;
+	--rounded-3: 15px;
+	--rounded-4: 20px;
+	--rounded-5: 25px;
+
+	// * Z-index
+	--z-active-chat-elements: 100;
+	--z-chats-sidebar-actions-element: 110;
+	--z-floating-drop-zone: 120;
+	--z-modal-element: 130;
+	--z-user-select-element: 140;
+
+	--z-slider-controls: 1;
+	--z-slider-indicators: 2;
+
+	// * Width
+	--width-chat-content: 55%;
+
+	// * Height
+	--min-height-chat-header: 5rem;
+
+	// * Animations
+	--base-transition-timing: 0.3s;
+}

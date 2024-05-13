@@ -1,0 +1,13 @@
+@import './normalize.scss';
+@import './fonts.scss';
+@import './variables/common.scss';
+@import './variables/highlight-colors.scss';
+@import './variables/themes.scss';
+
+body {
+  font-family: Montserrat, sans-serif;
+  background: var(--gradient-bg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--color-secondary-1000);
+}

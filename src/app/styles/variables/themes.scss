@@ -1,0 +1,48 @@
+// Common
+body {
+	--color-accent-1000: #FF2C5E;
+  --color-accent-900: #FF5C8A;
+  --color-accent-glassed-1000: #ff2c5e36;
+
+  --color-white: #FFFFFF;
+  --color-error:  #EE5252;
+  --color-error-glassed:  #be242436;
+}
+
+// Insomnia
+body[class="theme_insomnia"] {
+  --color-primary-1000: #181a1d;
+  --color-primary-900:  #1f2226;
+  --color-primary-800:  #252931;
+  --color-primary-700:  #2d323a;
+  --color-primary-600:  #353a42;
+  --color-primary-500:  #3f454d;
+  --color-primary-400:  #676d75;
+  --color-primary-300:  #8a9199;
+  --color-primary-200:  #aeb4bc;
+  --color-primary-100:  #d0d3d8;
+	--color-secondary-1000: #F8F9FA;
+
+  // Components
+  --gradient-bg: linear-gradient(0deg, var(--color-primary-1000), var(--color-primary-800));
+  --auth-form-shadow-color: #121212;
+}
+
+// Winter
+body[class="theme_winter"] {
+  --color-primary-1000: #F7F8FA;
+  --color-primary-900: #EFF2F5;
+  --color-primary-800: #E6EBEF;
+  --color-primary-700: #DDE4E9;
+  --color-primary-600: #CDD9E3;
+  --color-primary-500: #BCCEDD;
+  --color-primary-400: #AABCCD;
+  --color-primary-300: #829BAF;
+  --color-primary-200: #627D8C;
+  --color-primary-100: #425A6E;
+	--color-secondary-1000: #000000;
+
+  // Components
+  --gradient-bg: linear-gradient(0deg, var(--color-primary-800), var(--color-primary-600));
+  --auth-form-shadow-color: #B0B0B0;
+}

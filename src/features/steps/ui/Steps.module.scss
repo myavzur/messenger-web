@@ -1,0 +1,63 @@
+.steps {
+	--step-change-timing: 300ms;
+	position: relative;
+
+	.step {
+		&_enter {
+			&-from-left {
+				left: -150%;
+			}
+
+			&-from-right {
+				left: 150%;
+			}
+
+			&-from-left,
+			&-from-right {
+				width: 100%;
+				position: absolute;
+				top: 50%;
+				opacity: 0;
+				transform: translateY(-50%);
+
+				&-active {
+					left: 0%;
+					opacity: 1;
+					transition:	left var(--step-change-timing) ease-in-out,	opacity var(--step-change-timing) ease-in-out;
+				}
+
+				&-done {
+					position: unset;
+				}
+			}
+		}
+
+		&_exit {
+			&-to-right,
+			&-to-left {
+				width: 100%;
+				position: absolute;
+				top: 50%;
+				left: 0%;
+				transform: translateY(-50%) scale(1);
+
+				&-active {
+					transform: translateY(-50%) scale(0.8);
+					transition:	left var(--step-change-timing) ease-in-out,	transform var(--step-change-timing) ease-in-out;
+				}
+
+				&-done {
+					position: unset;
+				}
+			}
+
+			&-to-right-active {
+				left: 150%;
+			}
+
+			&-to-left-active {
+				left: -150%;
+			}
+		}
+	}
+}

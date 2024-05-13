@@ -1,0 +1,30 @@
+@import "@/app/styles/_mixins";
+
+.logo {
+	display: flex;
+	align-items: center;
+	font-size: 24px;
+
+	&__icon {
+		@include set-icon-size(45px);
+		border: 3px solid var(--color-primary-700);
+		border-radius: 50%;
+
+		// Background
+		circle {
+			fill: var(--color-primary-700);
+		}
+
+		// Shape
+		path {
+			fill: var(--color-accent-1000);
+		}
+	}
+
+	//
+	&__name {
+		font-size: 24px;
+		margin-left: var(--space-3);
+		color: var(--color-primary-400);
+	}
+}

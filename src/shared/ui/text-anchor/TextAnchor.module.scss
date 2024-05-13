@@ -1,0 +1,28 @@
+.anchor {
+	width: max-content;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	font-size: inherit;
+	color: var(--color-accent-1000);
+	transition:
+		border-bottom var(--base-transition-timing),
+		color var(--base-transition-timing);
+
+	&:hover {
+		border-bottom: 2px solid var(--color-accent-1000);
+	}
+
+	&:focus,
+	&:active {
+		outline-offset: 2px;
+		outline-color: var(--color-accent-glassed-1000);
+	}
+
+	&:visited {
+		color: inherit;
+	}
+
+	&_centered {
+		margin: 0 auto;
+	}
+}

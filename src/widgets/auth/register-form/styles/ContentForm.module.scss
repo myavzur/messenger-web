@@ -1,0 +1,28 @@
+.content-form, .footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: var(--space-5);
+}
+
+.enter {
+	max-height: 0px;
+	opacity: 0;
+
+	&_active, &_done {
+		opacity: 1;
+		max-height: 300px;
+		transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+	}
+}
+
+.exit {
+	max-height: 300px;
+	opacity: 1;
+
+	&_active, &_done {
+		opacity: 0;
+		max-height: 0px;
+		transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+	}
+}

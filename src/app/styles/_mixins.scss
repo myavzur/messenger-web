@@ -1,0 +1,105 @@
+@mixin line-clamp($line) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+@mixin custom-scrollbar() {
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-3xl;
+    border: 4px solid transparent;
+    background-color: var(--color-app-bg);
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-400);
+  }
+}
+
+@mixin hide-scrollbar() {
+  &::-webkit-scrollbar { width: 0; } // Chrome, Safari
+  & { -ms-overflow-style: none; } // IE 10+
+  & { overflow: -moz-scrollbars-none; } // Firefox
+}
+
+@mixin set-icon-size($size) {
+  min-width: $size; // Prevent from shrinking.
+  width: $size;
+  height: $size;
+}
+
+@mixin chat-background() {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+  background-size: cover;
+}
+
+// Responsiveness settings
+$phone-portrait-max-width: 320px;
+$phone-landscape-max-width: 480px;
+$tablet-portrait-max-width: 768px;
+$laptop-max-width: 1200px;
+$laptop-md-max-width: 1400px;
+$desktop-max-width: 1680px;
+
+// Responsive breakpoints
+@mixin bpto($point) {
+	// Portrait phones (320+)
+	@if $point == phone-portrait {
+		@media only screen and (max-width: $phone-portrait-max-width) {
+      @content;
+    }
+	}
+
+  // Landscape phones (480+)
+  @else if $point == phone-landscape {
+    @media only screen and (max-width: $phone-landscape-max-width) {
+      @content;
+    }
+  }
+  // Portrait tablet (768+)
+  @else if $point == tablet-portrait {
+    @media only screen and (max-width: $tablet-portrait-max-width) {
+      @content;
+    }
+  }
+  // Laptop (1280px+)
+  @else if $point == laptop {
+    @media only screen and (max-width: $laptop-max-width) {
+      @content;
+    }
+  }
+  // Laptop middle (1400+)
+  @else if $point == laptop-md {
+    @media only screen and (max-width: $laptop-md-max-width) {
+      @content;
+    }
+  }
+  // Desktop (1680+)
+  @else if $point == desktop {
+    @media only screen and (max-width: $desktop-max-width) {
+      @content;
+    }
+  }
+}
+
+@mixin bp($points...) {
+  @each $point in $points {
+    @include bpto($point) {
+      @content;
+    }
+  }
+}
+
+@mixin bp-custom($media, $point) {
+  @media only screen and ($media: $point) {
+    @content;
+  }
+}

@@ -1,0 +1,29 @@
+@import "@/app/styles/_mixins";
+
+.social {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid var(--color-primary-700);
+	background: none;
+	border-radius: var(--rounded-1);
+	padding: var(--space-2) var(--space-3);
+	width: 100%;
+	transition: border-color var(--base-transition-timing);
+
+	&:hover,
+	&:active {
+		border-color: var(--color-accent-glassed-1000);
+	}
+
+	&__icon {
+		@include set-icon-size(20px);
+	}
+
+	&__text {
+		margin: 0 auto;
+		font-size: 12px;
+		color: var(--color-secondary-1000);
+	}
+}
