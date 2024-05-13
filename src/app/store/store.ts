@@ -2,13 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { rootReducer } from "./root.reducer";
 
-import { userApi } from "@/entities/user/api";
+import { whisperFoxApi } from "@/shared/api";
 
 export const store = configureStore({
 	devTools: import.meta.env.DEV,
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(userApi.middleware)
+		getDefaultMiddleware().concat(whisperFoxApi.middleware)
 });
 
 export type IStoreState = ReturnType<typeof store.getState>;

@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { IAttachment } from "@/entities/attachment/interfaces";
-import {
-	IAuthorizationResponse,
-	ILoginBody,
-	IRegisterBody,
-	IUser
-} from "../interfaces";
 
 import { getAccessToken, setAccessToken } from "@/shared/lib/helpers";
+import {
+	IUser,
+	IAuthorizationResponse,
+	ILoginBody,
+	IRegisterBody
+} from "@/entities/user/interfaces";
 
 const API_SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 
@@ -16,9 +16,9 @@ enum ApiTags {
 	USER = "user"
 }
 
-export const userApi = createApi({
+export const whisperFoxApi = createApi({
 	tagTypes: [ApiTags.USER],
-	reducerPath: "api",
+	reducerPath: "whisperFoxApi",
 	baseQuery: fetchBaseQuery({
 		baseUrl: API_SERVER_URL,
 		prepareHeaders: (headers) => {

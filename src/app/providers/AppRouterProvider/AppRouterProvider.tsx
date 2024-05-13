@@ -3,23 +3,28 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { ProtectedRoute } from "./ProtectedRoute";
 import { PageLoader } from "@/shared/ui";
+import { useAuth } from "@/entities/auth/lib/hooks";
 
 const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
 const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
 
 export const AppRouterProvider: React.FC = () => {
-	// const { isAuthorized, isCurrentUserFetching } = useAuth();
+	const { isAuthorized, isCurrentUserFetching } = useAuth();
+
+	if (isCurrentUserFetching) {
+		return <PageLoader captureText="Fetching Data..." />;
+	}
 
 	return (
 		<BrowserRouter>
-			<Suspense fallback={<PageLoader captureText="Loading page..." />}>
+			<Suspense fallback={<PageLoader captureText="Loading Page..." />}>
 				<Routes>
 					<Route
 						path="/chats"
 						element={
 							<ProtectedRoute
 								redirectPath="/auth/login"
-								hasAccess={false}
+								hasAccess={isAuthorized}
 								element={<h1>Чаты</h1>}
 							/>
 						}

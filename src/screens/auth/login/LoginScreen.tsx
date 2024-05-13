@@ -6,7 +6,7 @@ import { AuthLayout } from "@/layouts/auth-layout/ui";
 const LoginScreen: React.FC = () => {
 	// const navigate = useNavigate();
 
-	// const [login, loginStatus] = userApi.useLoginMutation();
+	// const [login, loginStatus] = whisperFoxApi.useLoginMutation();
 	// const { updateSocketsAccessToken } = useSocketsContext();
 
 	// const handleLogin = (credentials: ILoginBody) => {
