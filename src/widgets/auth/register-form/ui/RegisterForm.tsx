@@ -12,7 +12,8 @@ import { CSSTransition } from "react-transition-group";
 import styles from "../styles/ContentForm.module.scss";
 
 export const RegisterForm: React.FC<IRegisterFormProps> = () => {
-	const { activeStepIndex, nextStep, previousStep, isFirstStep, isLastStep } = useSteps(2);
+	const { activeStepIndex, nextStep, previousStep, isFirstStep, isLastStep } =
+		useSteps(2);
 
 	const handleSupplyData = useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {

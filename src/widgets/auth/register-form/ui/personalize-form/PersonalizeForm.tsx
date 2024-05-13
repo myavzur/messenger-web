@@ -15,7 +15,15 @@ export const PersonalizeForm: React.FC<IPersonalizeFormProps> = ({
 		>
 			<legend>Personalize your Experience ✨</legend>
 
-			<div style={{height: 150, width: 150, backgroundColor: "orange", margin: "0 auto", borderRadius: 1500}}></div>
+			<div
+				style={{
+					height: 150,
+					width: 150,
+					backgroundColor: "orange",
+					margin: "0 auto",
+					borderRadius: 1500
+				}}
+			></div>
 			<TextField label="Display Name" />
 
 			<TextField label="Theme" />

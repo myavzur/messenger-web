@@ -9,7 +9,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore",
     "fix": "npm run format && npm run lint --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",

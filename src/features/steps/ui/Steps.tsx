@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+import { usePreviousValue } from "@/shared/lib/hooks";
 
 import { IStepsProps } from "./Steps.interface";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { usePreviousValue } from "@/shared/lib/hooks";
 import styles from "./Steps.module.scss";
 
 export const Steps: React.FC<IStepsProps> = ({ steps, activeStepIndex }) => {
 	const prevActiveStepIndexRef = usePreviousValue(activeStepIndex);
-	const prevActiveStepIndex = prevActiveStepIndexRef.current;
 
 	const [visibleStepIndexes, setVisibleStepIndexes] = useState(() => {
 		return [activeStepIndex];
@@ -15,23 +15,23 @@ export const Steps: React.FC<IStepsProps> = ({ steps, activeStepIndex }) => {
 
 	const isGoingForward = useMemo(() => {
 		return (
-			typeof prevActiveStepIndex === "number" &&
-			prevActiveStepIndex < activeStepIndex
+			typeof prevActiveStepIndexRef.current === "number" &&
+			prevActiveStepIndexRef.current < activeStepIndex
 		);
-	}, [activeStepIndex]);
+	}, [prevActiveStepIndexRef, activeStepIndex]);
 
 	const enterClassSuffix = isGoingForward ? "from-right" : "from-left";
 	const exitClassSuffix = isGoingForward ? "to-left" : "to-right";
 
 	useEffect(() => {
-		if (typeof prevActiveStepIndex !== "number") return;
+		if (typeof prevActiveStepIndexRef.current !== "number") return;
 
 		if (isGoingForward) {
-			setVisibleStepIndexes([prevActiveStepIndex, activeStepIndex]);
+			setVisibleStepIndexes([prevActiveStepIndexRef.current, activeStepIndex]);
 		} else {
-			setVisibleStepIndexes([activeStepIndex, prevActiveStepIndex]);
+			setVisibleStepIndexes([activeStepIndex, prevActiveStepIndexRef.current]);
 		}
-	}, [activeStepIndex]);
+	}, [prevActiveStepIndexRef, isGoingForward, activeStepIndex]);
 
 	return (
 		<TransitionGroup className={styles.steps}>
