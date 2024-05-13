@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { ProtectedRoute } from "./ProtectedRoute";
+import { PageLoader } from "@/shared/ui";
 
 const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
 const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
@@ -9,13 +10,9 @@ const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
 export const AppRouterProvider: React.FC = () => {
 	// const { isAuthorized, isCurrentUserFetching } = useAuth();
 
-	// if (isCurrentUserFetching) {
-	//   return <PageLoader isFullScreen={true} />;
-	// }
-
 	return (
 		<BrowserRouter>
-			<Suspense fallback={<h1>Loading now...</h1>}>
+			<Suspense fallback={<PageLoader captureText="Loading page..." />}>
 				<Routes>
 					<Route
 						path="/chats"
