@@ -4,9 +4,9 @@ import { IAttachment } from "@/entities/attachment/interfaces";
 import {
 	IAuthorizationResponse,
 	ILoginBody,
-	IRegisterBody,
-	IUser
-} from "@/entities/user/interfaces";
+	IRegisterBody
+} from "@/entities/auth/interfaces";
+import { IUser } from "@/entities/user/interfaces";
 
 import { getAccessToken, setAccessToken } from "@/shared/lib/helpers";
 
