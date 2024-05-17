@@ -12,11 +12,16 @@
 	&_active {
 		.field__label {
 			// scale(0.857) = font-size: 12px;
-			transform: translateX(10px) translateY(0px) scale(0.8);
+			transform: translateX(10px) translateY(4px) scale(0.8);
+		}
+
+		.field__content {
+			transform: translateY(6px);
 		}
 	}
 
 	&__label {
+		pointer-events: none;
 		position: absolute;
 		color: var(--color-primary-400);
 		font-size: 14px;

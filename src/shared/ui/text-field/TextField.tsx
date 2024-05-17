@@ -7,6 +7,7 @@ import styles from "./TextField.module.scss";
 export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 	(props, ref) => {
 		const { className, label, ...inputProps } = props;
+		const [inputValue, setInputValue] = useState(inputProps.value);
 		const [isFocused, setIsFocused] = useState(false);
 
 		return (
@@ -14,7 +15,8 @@ export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 				className={cn(
 					styles.field,
 					{
-						[styles["field_has-value"]]: inputProps.value,
+						[styles["field_has-value"]]:
+							typeof inputValue === "string" && inputValue.trim() !== "",
 						[styles["field_active"]]: isFocused
 					},
 					className
@@ -28,6 +30,7 @@ export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 					className={styles.field__content}
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}
+					onChange={(e) => setInputValue(e.target.value)}
 				/>
 			</div>
 		);
