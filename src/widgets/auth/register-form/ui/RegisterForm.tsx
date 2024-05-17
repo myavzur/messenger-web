@@ -14,6 +14,29 @@ import { IRegisterFormProps } from "./RegisterForm.interface";
 import { CredentialsForm } from "./credentials-form";
 import { PersonalizeForm } from "./personalize-form";
 
+const stepsConfig = [
+	{
+		backwardTiming: {
+			delay: 0,
+			duration: 300
+		},
+		forwardTiming: {
+			delay: 300,
+			duration: 300
+		}
+	},
+	{
+		backwardTiming: {
+			delay: 0,
+			duration: 300
+		},
+		forwardTiming: {
+			delay: 300,
+			duration: 300
+		}
+	}
+];
+
 export const RegisterForm: React.FC<IRegisterFormProps> = () => {
 	const { activeStepIndex, nextStep, previousStep, isFirstStep, isLastStep } =
 		useSteps(2);
@@ -39,12 +62,17 @@ export const RegisterForm: React.FC<IRegisterFormProps> = () => {
 		];
 	}, [handleSupplyData, previousStep]);
 
+	const footerDelay = isFirstStep ? 300 : 0;
+	const footerStyles = {
+		"--footer-toggle-delay": footerDelay + "ms"
+	} as React.CSSProperties;
+
 	return (
 		<AuthFormLayout
 			footerElement={
 				<CSSTransition
 					in={isFirstStep}
-					timeout={300}
+					timeout={footerDelay}
 					classNames={{
 						enter: styles.enter,
 						enterActive: styles.enter_active,
@@ -54,7 +82,10 @@ export const RegisterForm: React.FC<IRegisterFormProps> = () => {
 						exitDone: styles.exit_done
 					}}
 				>
-					<div className={styles.footer}>
+					<div
+						className={styles.footer}
+						style={footerStyles}
+					>
 						<Divider>or</Divider>
 
 						<SocialButton leftIconElement={<Icon name="socials/google" />}>
@@ -77,6 +108,7 @@ export const RegisterForm: React.FC<IRegisterFormProps> = () => {
 			<Steps
 				activeStepIndex={activeStepIndex}
 				steps={steps}
+				stepsConfig={stepsConfig}
 			/>
 		</AuthFormLayout>
 	);

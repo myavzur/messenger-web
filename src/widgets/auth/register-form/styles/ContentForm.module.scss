@@ -3,6 +3,8 @@
 	flex-direction: column;
 	justify-content: center;
 	gap: var(--space-5);
+
+	--footer-toggle-delay: 0ms;
 }
 
 .enter {
@@ -12,7 +14,7 @@
 	&_active, &_done {
 		opacity: 1;
 		max-height: 300px;
-		transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+		transition: max-height 300ms ease-in-out var(--footer-toggle-delay), opacity 300ms ease-in-out var(--footer-toggle-delay);
 	}
 }
 
@@ -23,6 +25,6 @@
 	&_active, &_done {
 		opacity: 0;
 		max-height: 0px;
-		transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+		transition: max-height 300ms ease-in-out var(--footer-toggle-delay), opacity 300ms ease-in-out var(--footer-toggle-delay);
 	}
 }

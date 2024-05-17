@@ -1,8 +1,12 @@
 .steps {
-	--step-change-timing: 300ms;
+	--step-change-duration: 300ms;
+
 	position: relative;
 
 	.step {
+		width: 100%;
+		--step-change-delay: 0ms;
+
 		&_enter {
 			&-from-left {
 				left: -150%;
@@ -23,7 +27,7 @@
 				&-active {
 					left: 0%;
 					opacity: 1;
-					transition:	left var(--step-change-timing) ease-in-out,	opacity var(--step-change-timing) ease-in-out;
+					transition:	left var(--step-change-duration) ease-in-out var(--step-change-delay),	opacity var(--step-change-duration) ease-in-out var(--step-change-delay);
 				}
 
 				&-done {
@@ -43,7 +47,7 @@
 
 				&-active {
 					transform: translateY(-50%) scale(0.8);
-					transition:	left var(--step-change-timing) ease-in-out,	transform var(--step-change-timing) ease-in-out;
+					transition:	left var(--step-change-duration) ease-in-out var(--step-change-delay),	transform var(--step-change-duration) ease-in-out var(--step-change-delay);
 				}
 
 				&-done {
