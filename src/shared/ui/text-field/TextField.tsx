@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { forwardRef, useState } from "react";
+import React, { forwardRef, useLayoutEffect, useState } from "react";
 
 import { ITextFieldProps } from "./TextField.interface";
 import styles from "./TextField.module.scss";
@@ -7,16 +7,36 @@ import styles from "./TextField.module.scss";
 export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 	(props, ref) => {
 		const { className, label, ...inputProps } = props;
-		const [inputValue, setInputValue] = useState(inputProps.value);
+		const [hasValue, setHasValue] = useState(false);
 		const [isFocused, setIsFocused] = useState(false);
+
+		const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+			const hasValue = event.target.value.trim() !== "";
+			if (hasValue) {
+				return setHasValue(true);
+			}
+			setHasValue(false);
+			inputProps.onChange?.(event);
+		};
+
+		const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+			setIsFocused(false);
+			inputProps.onBlur?.(event);
+		};
+
+		useLayoutEffect(() => {
+			if (inputProps.value) {
+				setHasValue(true);
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
 
 		return (
 			<div
 				className={cn(
 					styles.field,
 					{
-						[styles["field_has-value"]]:
-							typeof inputValue === "string" && inputValue.trim() !== "",
+						[styles["field_has-value"]]: hasValue,
 						[styles["field_active"]]: isFocused
 					},
 					className
@@ -29,8 +49,8 @@ export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 					ref={ref}
 					className={styles.field__content}
 					onFocus={() => setIsFocused(true)}
-					onBlur={() => setIsFocused(false)}
-					onChange={(e) => setInputValue(e.target.value)}
+					onBlur={handleBlur}
+					onChange={handleChange}
 				/>
 			</div>
 		);

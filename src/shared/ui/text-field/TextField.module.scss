@@ -5,6 +5,7 @@
 	background-color: var(--color-primary-900);
 	border: 1px solid var(--color-primary-500);
 	border-radius: var(--rounded-1);
+	overflow: hidden;
 
 	&_invalid {}
 
@@ -28,6 +29,7 @@
 		transform: translateX(15px) translateY(15px) scale(1);
 		transition: transform var(--base-transition-timing);
 		will-change: transform;
+		z-index: var(--z-index-input-label);
 	}
 
 	&__content {

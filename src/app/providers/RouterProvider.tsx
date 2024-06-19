@@ -1,43 +1,39 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { PageLoader } from "@/shared/ui";
+import { useUserQuery } from "@/entities/auth/lib/hooks";
 
-import { ProtectedRoute } from "./ProtectedRoute";
+import { PageLoader } from "@/shared/ui";
 
 const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
 const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
+const MessengerScreen = React.lazy(() => import("@/screens/messenger"));
 
-export const AppRouterProvider: React.FC = () => {
-	// if (isCurrentUserFetching) {
-	// 	return <PageLoader captureText="Fetching Data..." />;
-	// }
+export const RouterProvider: React.FC = () => {
+	const { isFetching, isSuccess } = useUserQuery();
+
+	if (isFetching) {
+		return <PageLoader captureText="Fetching Data..." />;
+	}
 
 	return (
 		<BrowserRouter>
 			<Suspense fallback={<PageLoader captureText="Loading Page..." />}>
 				<Routes>
 					<Route
-						path="/chats"
-						element={
-							<ProtectedRoute
-								redirectPath="/auth/login"
-								hasAccess={false}
-								element={<h1>Чаты</h1>}
-							/>
-						}
+						path="/messenger"
+						element={!isSuccess && <Navigate to="/auth/login" />}
 					>
 						<Route
 							index
-							element={<h1>Чаты</h1>}
-						/>
-						<Route
-							path=":polymorphicId"
-							element={<h1>Чат</h1>}
+							element={<MessengerScreen />}
 						/>
 					</Route>
 
-					<Route path="/auth">
+					<Route
+						path="/auth"
+						element={isSuccess && <Navigate to="/messenger" />}
+					>
 						<Route
 							path="login"
 							element={<LoginScreen />}
@@ -49,8 +45,8 @@ export const AppRouterProvider: React.FC = () => {
 					</Route>
 
 					<Route
-						index
-						element={<Navigate to="/chats" />}
+						path="*"
+						element={<Navigate to="/messenger" />}
 					/>
 				</Routes>
 			</Suspense>

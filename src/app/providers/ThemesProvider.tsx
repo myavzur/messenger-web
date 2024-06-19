@@ -1,11 +1,12 @@
-import { usePreferencesStore } from "@/shared/store/preferences";
 import React, { useLayoutEffect } from "react";
+
+import { usePreferencesStore } from "@/shared/stores/preferences";
 
 interface IAppThemeProps {
 	children?: React.ReactNode;
 }
 
-export const AppThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
+export const ThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
 	const theme = usePreferencesStore((state) => state.theme);
 
 	useLayoutEffect(() => {
