@@ -1,13 +1,12 @@
+import { usePreferencesStore } from "@/shared/store/preferences";
 import React, { useLayoutEffect } from "react";
-
-import { useStoreSelector } from "@/shared/lib/hooks";
 
 interface IAppThemeProps {
 	children?: React.ReactNode;
 }
 
 export const AppThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
-	const theme = useStoreSelector((state) => state.settings.theme);
+	const theme = usePreferencesStore((state) => state.theme);
 
 	useLayoutEffect(() => {
 		const bodyClassList = document.body.classList;
@@ -20,7 +19,6 @@ export const AppThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
 		});
 
 		bodyClassList.add(`theme_${theme}`);
-		localStorage.setItem("theme", theme);
 	}, [theme]);
 
 	return children;
