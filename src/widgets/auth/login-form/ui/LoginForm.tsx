@@ -30,6 +30,7 @@ export const LoginForm: React.FC = () => {
 
 	const handleLogin: SubmitHandler<ILoginBody> = async (credentials) => {
 		if (!isValid) return;
+
 		try {
 			const response = await loginMutation.mutateAsync(credentials);
 			setAccessToken(response.data.access_token);

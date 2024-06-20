@@ -6,7 +6,7 @@ interface IAppThemeProps {
 	children?: React.ReactNode;
 }
 
-export const AppThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
+export const ThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
 	const theme = usePreferencesStore((state) => state.theme);
 
 	useLayoutEffect(() => {

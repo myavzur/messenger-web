@@ -1,3 +1,3 @@
-export * from "./AppRouterProvider";
-export * from "./AppReactQueryProvider";
-export * from "./AppThemesProvider";
+export * from "./RouterProvider";
+export * from "./ReactQueryProvider";
+export * from "./ThemesProvider";

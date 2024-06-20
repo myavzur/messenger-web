@@ -1,16 +1,12 @@
-import {
-	AppReactQueryProvider,
-	AppRouterProvider,
-	AppThemesProvider
-} from "@/app/providers";
+import { ReactQueryProvider, RouterProvider, ThemesProvider } from "@/app/providers";
 import "@/app/styles/main.scss";
 
 export const App = () => {
 	return (
-		<AppReactQueryProvider>
-			<AppThemesProvider>
-				<AppRouterProvider />
-			</AppThemesProvider>
-		</AppReactQueryProvider>
+		<ReactQueryProvider>
+			<ThemesProvider>
+				<RouterProvider />
+			</ThemesProvider>
+		</ReactQueryProvider>
 	);
 };

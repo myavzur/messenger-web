@@ -1,5 +1,5 @@
 import cn from "classnames";
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useLayoutEffect, useState } from "react";
 
 import { ITextFieldProps } from "./TextField.interface";
 import styles from "./TextField.module.scss";
@@ -23,6 +23,13 @@ export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 			setIsFocused(false);
 			inputProps.onBlur?.(event);
 		};
+
+		useLayoutEffect(() => {
+			if (inputProps.value) {
+				setHasValue(true);
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
 
 		return (
 			<div

@@ -7,7 +7,7 @@ import { setAccessToken } from "@/shared/lib/helpers";
 import { IAuthorizationResponse } from "../../interfaces";
 import { getRequestHeaders } from "../helpers/get-request-headers";
 
-const preformRegisterRequest = async () => {
+const preformRegisterMutation = async () => {
 	const response = await axios.get<IAuthorizationResponse>(
 		`${API_SERVER_URL}/auth/register`,
 		{
@@ -23,6 +23,6 @@ const preformRegisterRequest = async () => {
 export const useRegisterMutation = () => {
 	return useQuery({
 		queryKey: ["register"],
-		queryFn: preformRegisterRequest
+		queryFn: preformRegisterMutation
 	});
 };

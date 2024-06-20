@@ -5,12 +5,11 @@ import { useUserQuery } from "@/entities/auth/lib/hooks";
 
 import { PageLoader } from "@/shared/ui";
 
-import { ProtectedRoute } from "./ProtectedRoute";
-
 const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
 const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
+const MessengerScreen = React.lazy(() => import("@/screens/messenger"));
 
-export const AppRouterProvider: React.FC = () => {
+export const RouterProvider: React.FC = () => {
 	const { isFetching, isSuccess } = useUserQuery();
 
 	if (isFetching) {
@@ -22,31 +21,19 @@ export const AppRouterProvider: React.FC = () => {
 			<Suspense fallback={<PageLoader captureText="Loading Page..." />}>
 				<Routes>
 					<Route
-						index
-						element={<Navigate to="/chats" />}
-					/>
-
-					<Route
-						path="/chats"
-						element={
-							<ProtectedRoute
-								redirectPath="/auth/login"
-								hasAccess={isSuccess}
-								element={<h1>Чаты</h1>}
-							/>
-						}
+						path="/messenger"
+						element={!isSuccess && <Navigate to="/auth/login" />}
 					>
 						<Route
 							index
-							element={<h1>Чаты</h1>}
-						/>
-						<Route
-							path=":polymorphicId"
-							element={<h1>Чат</h1>}
+							element={<MessengerScreen />}
 						/>
 					</Route>
 
-					<Route path="/auth">
+					<Route
+						path="/auth"
+						element={isSuccess && <Navigate to="/messenger" />}
+					>
 						<Route
 							path="login"
 							element={<LoginScreen />}
@@ -56,6 +43,11 @@ export const AppRouterProvider: React.FC = () => {
 							element={<RegisterScreen />}
 						/>
 					</Route>
+
+					<Route
+						path="*"
+						element={<Navigate to="/messenger" />}
+					/>
 				</Routes>
 			</Suspense>
 		</BrowserRouter>

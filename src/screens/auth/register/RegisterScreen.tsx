@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/layouts/auth-layout/ui";
+import { AuthLayout } from "@/layouts/auth-layout";
 
 import { RegisterForm } from "@/widgets/auth/register-form/ui";
 

@@ -7,7 +7,7 @@ import { setAccessToken } from "@/shared/lib/helpers";
 import { IAuthorizationResponse, ILoginBody } from "../../interfaces";
 import { getRequestHeaders } from "../helpers/get-request-headers";
 
-const performLoginRequest = async (credentials: ILoginBody) => {
+const performLoginMutation = async (credentials: ILoginBody) => {
 	const response = await axios.post<IAuthorizationResponse>(
 		`${API_SERVER_URL}/auth/login`,
 		credentials,
@@ -24,6 +24,6 @@ const performLoginRequest = async (credentials: ILoginBody) => {
 export const useLoginMutation = () => {
 	return useMutation({
 		mutationKey: ["login"],
-		mutationFn: performLoginRequest
+		mutationFn: performLoginMutation
 	});
 };
