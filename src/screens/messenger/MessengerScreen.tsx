@@ -1,16 +1,25 @@
 import { MainLayout } from "@/layouts/main-layout";
 
-import authService from "@/entities/auth/services/auth.service";
+import { ChatListSidebar } from "@/widgets/sidebar/chat-list-sidebar";
 
-import { Button } from "@/shared/ui";
+import styles from "./styles.module.scss";
 
 const MessengerScreen = () => {
 	return (
 		<MainLayout>
-			<Button onClick={authService.logout}>Logout</Button>
-			<div>1</div>
-			<div className="div">1</div>
-			<div className="div">2</div>
+			<div className={styles.sidebar}>
+				<ChatListSidebar />
+			</div>
+
+			<div className={styles.chat}>
+				<div className={styles.chatHeader}>Header</div>
+				<div className={styles.chatContent}>Content</div>
+			</div>
+
+			<div className={styles.chatInfo}>
+				<div>Chat</div>
+				<div>Content</div>
+			</div>
 		</MainLayout>
 	);
 };

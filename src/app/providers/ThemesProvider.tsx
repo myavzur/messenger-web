@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 
-import { usePreferencesStore } from "@/shared/stores/preferences";
+import { usePreferencesStore } from "@/shared/store/preferences";
 
 interface IAppThemeProps {
 	children?: React.ReactNode;

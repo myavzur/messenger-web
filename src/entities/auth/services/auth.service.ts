@@ -23,6 +23,10 @@ class AuthService {
 		return headers;
 	};
 
+	getAccessToken = () => {
+		return localStorage.getItem(this.STORAGE_TOKEN_KEY);
+	};
+
 	authorize = async () => {
 		return axios.get<IUser>(`${this.URL}/me`, {
 			headers: this.getRequestHeaders()
