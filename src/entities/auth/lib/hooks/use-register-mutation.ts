@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { QueryKey, queryClient } from "@/shared/api/query-client";
-import { useWebsocket } from "@/shared/context/WebSocketContext/hooks/use-websocket";
+import { useWebsocket } from "@/shared/context/websocket-context/hooks/use-websocket";
 
 import authService from "../../services/auth.service";
 

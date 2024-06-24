@@ -1,7 +1,7 @@
 import { ReactQueryProvider, RouterProvider, ThemesProvider } from "@/app/providers";
 import "@/app/styles/main.scss";
 
-import { WebSocketProvider } from "@/shared/context/WebSocketContext";
+import { WebSocketProvider } from "@/shared/context/websocket-context";
 
 export const App = () => {
 	return (

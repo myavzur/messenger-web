@@ -1,4 +1,4 @@
-import { useWebsocket } from "@/shared/context/WebSocketContext/hooks/use-websocket";
+import { useWebsocket } from "@/shared/context/websocket-context/hooks/use-websocket";
 
 import authService from "../../services/auth.service";
 

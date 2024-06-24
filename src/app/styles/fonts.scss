@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Montserrat';
-  src: url('../../shared/fonts/Montserrat-Regular.woff2') format('woff2'),
-      url('../../shared/fonts/Montserrat-Regular.woff') format('woff');
+  src: url('../assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+      url('../assets/fonts/Montserrat-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -9,8 +9,8 @@
 
 @font-face {
   font-family: 'Montserrat';
-  src: url('../../shared/fonts/Montserrat-Light.woff2') format('woff2'),
-      url('../../shared/fonts/Montserrat-Light.woff') format('woff');
+  src: url('../assets/fonts/Montserrat-Light.woff2') format('woff2'),
+      url('../assets/fonts/Montserrat-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
-import { IChatSocket } from "./chat-connection.interface";
-import { IPresenceSocket } from "./presence-connection.interface";
+import { IChatSocket } from "./interfaces/chat-connection.interface";
+import { IPresenceSocket } from "./interfaces/presence-connection.interface";
 
 export interface IWebSocketContext {
 	presenceSocket: IPresenceSocket | null;

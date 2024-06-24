@@ -21,9 +21,7 @@ interface IChatServerEvents {
 
 interface IChatClientEvents {
 	"get-chats": (
-		payload: {
-			polymorphicId: IChat["id"] | IUser["id"];
-		},
+		payload: IPaginationBody,
 		callback: (
 			data: {
 				chats: IChat[];

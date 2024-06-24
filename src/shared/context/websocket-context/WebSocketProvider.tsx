@@ -1,17 +1,11 @@
-import React, {
-	PropsWithChildren,
-	useCallback,
-	useLayoutEffect,
-	useMemo,
-	useRef
-} from "react";
+import React, { PropsWithChildren, useCallback, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 
 import authService from "@/entities/auth/services/auth.service";
 
 import { WebSocketContext } from "./WebSocketContext";
-import { IChatSocket } from "./chat-connection.interface";
-import { IPresenceSocket } from "./presence-connection.interface";
+import { IChatSocket } from "./interfaces/chat-connection.interface";
+import { IPresenceSocket } from "./interfaces/presence-connection.interface";
 
 const CHAT_URL = import.meta.env.VITE_CHAT_SERVER_URL;
 const PRESENCE_URL = import.meta.env.VITE_PRESENCE_SERVER_URL;
@@ -19,10 +13,6 @@ const PRESENCE_URL = import.meta.env.VITE_PRESENCE_SERVER_URL;
 type IConnectionName = "chat_connection" | "presence_connection";
 
 export const WebSocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
-	const socketsRef = useRef<Map<IConnectionName, IChatSocket | IPresenceSocket>>(
-		new Map()
-	);
-
 	const openConnection = useMemo(() => {
 		return (connectionName: IConnectionName, connectionUrl: string) => {
 			const accessToken = authService.getAccessToken();
@@ -38,18 +28,22 @@ export const WebSocketProvider: React.FC<PropsWithChildren> = ({ children }) => 
 				}
 			});
 
-			socketsRef.current.set(connectionName, socket);
-
 			return socket;
 		};
 	}, []);
 
+	const [chatSocket, setChatSocket] = useState<IChatSocket | null>(() => {
+		return openConnection("chat_connection", CHAT_URL);
+	});
+	const [presenceSocket, setPresenceSocket] = useState<IPresenceSocket | null>(
+		() => {
+			return openConnection("presence_connection", PRESENCE_URL);
+		}
+	);
+
 	const openConnections = useCallback(() => {
-		const chatSocket = openConnection("chat_connection", CHAT_URL) as IChatSocket;
-		const presenceSocket = openConnection(
-			"presence_connection",
-			PRESENCE_URL
-		) as IPresenceSocket;
+		const chatSocket = openConnection("chat_connection", CHAT_URL);
+		const presenceSocket = openConnection("presence_connection", PRESENCE_URL);
 
 		chatSocket.on("connect", () => console.log("Connected to chat server"));
 		chatSocket.on("disconnect", () => console.log("Disconnected from chat server"));
@@ -57,24 +51,21 @@ export const WebSocketProvider: React.FC<PropsWithChildren> = ({ children }) => 
 		presenceSocket.on("disconnect", () =>
 			console.log("Disconnected from presence server")
 		);
+
+		setChatSocket(chatSocket);
+		setPresenceSocket(presenceSocket);
 	}, [openConnection]);
 
 	const closeConnections = useCallback(() => {
-		socketsRef.current.forEach((socket) => {
-			socket.disconnect();
-		});
-	}, []);
-
-	useLayoutEffect(() => {
-		openConnections();
-		return () => closeConnections();
-	}, [openConnections, closeConnections]);
+		if (chatSocket) chatSocket.disconnect();
+		if (presenceSocket) presenceSocket.disconnect();
+	}, [chatSocket, presenceSocket]);
 
 	return (
 		<WebSocketContext.Provider
 			value={{
-				chatSocket: socketsRef.current.get("chat_connection")!,
-				presenceSocket: socketsRef.current.get("presence_connection")!,
+				chatSocket,
+				presenceSocket,
 				closeConnections,
 				openConnections
 			}}
