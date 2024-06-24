@@ -14,9 +14,7 @@ export const Steps: React.FC<IStepsProps> = ({
 }) => {
 	const prevActiveStepIndexRef = usePreviousValue(activeStepIndex);
 
-	const [visibleStepIndexes, setVisibleStepIndexes] = useState(() => {
-		return [activeStepIndex];
-	});
+	const [visibleStepIndexes, setVisibleStepIndexes] = useState([activeStepIndex]);
 
 	const isGoingForward = useMemo(() => {
 		return (

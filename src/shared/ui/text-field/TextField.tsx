@@ -28,8 +28,7 @@ export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 			if (inputProps.value) {
 				setHasValue(true);
 			}
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, []);
+		}, [inputProps, setHasValue]);
 
 		return (
 			<div
