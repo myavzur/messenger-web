@@ -5,48 +5,32 @@
 	background-color: var(--color-primary-900);
 	border: 1px solid var(--color-primary-500);
 	border-radius: var(--rounded-1);
-	overflow: hidden;
+	width: 100%;
 
-	&_invalid {}
-
-	&_has-value,
-	&_active {
-		.field__label {
-			// scale(0.857) = font-size: 12px;
-			transform: translateX(10px) translateY(4px) scale(0.8);
-		}
-
-		.field__content {
-			transform: translateY(6px);
-		}
-	}
-
-	&__label {
-		pointer-events: none;
-		position: absolute;
-		color: var(--color-primary-400);
-		font-size: 14px;
-		transform: translateX(15px) translateY(15px) scale(1);
-		transition: transform var(--base-transition-timing);
-		will-change: transform;
-		z-index: var(--z-index-input-label);
-	}
-
-	&__content {
+	.input {
 		background: none;
 		border: none;
 		outline: none;
 		width: 100%;
+		height: 100%;
 		font-size: 14px;
 		color: var(--color-primary-300);
 		padding: var(--space-3);
 	}
 
-	&__icon {
+	.label {
+		pointer-events: none;
 		position: absolute;
-		top: var(--space-3);
-		left: var(--space-3);
-
-		@include set-icon-size(20px);
+		top: 0;
+		left: calc(var(--space-3) - 5px);
+		transform: translateY(-50%);
+		background: var(--color-primary-900);
+		border-radius: var(--rounded-1);
+		padding: 5px;
+		color: var(--color-primary-400);
+		font-size: 14px;
+		transition: all var(--base-transition-timing);
+		will-change: all;
+		z-index: var(--z-index-input-label);
 	}
 }

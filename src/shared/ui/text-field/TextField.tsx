@@ -1,56 +1,27 @@
 import cn from "classnames";
-import React, { forwardRef, useLayoutEffect, useState } from "react";
+import { forwardRef } from "react";
 
 import { ITextFieldProps } from "./TextField.interface";
 import styles from "./TextField.module.scss";
 
 export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
-	(props, ref) => {
-		const { className, label, ...inputProps } = props;
-		const [hasValue, setHasValue] = useState(false);
-		const [isFocused, setIsFocused] = useState(false);
-
-		const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-			const hasValue = event.target.value.trim() !== "";
-			if (hasValue) {
-				return setHasValue(true);
-			}
-			setHasValue(false);
-			inputProps.onChange?.(event);
-		};
-
-		const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-			setIsFocused(false);
-			inputProps.onBlur?.(event);
-		};
-
-		useLayoutEffect(() => {
-			if (inputProps.value) {
-				setHasValue(true);
-			}
-		}, [inputProps, setHasValue]);
-
+	({ className, label, ...inputProps }, ref) => {
 		return (
-			<div
-				className={cn(
-					styles.field,
-					{
-						[styles["field_has-value"]]: hasValue,
-						[styles["field_active"]]: isFocused
-					},
-					className
-				)}
-			>
-				{label && <label className={styles.field__label}>{label}</label>}
-
+			<div className={cn(styles.field, className)}>
 				<input
 					{...inputProps}
+					id={`input${label}`}
 					ref={ref}
-					className={styles.field__content}
-					onFocus={() => setIsFocused(true)}
-					onBlur={handleBlur}
-					onChange={handleChange}
+					className={styles.input}
 				/>
+				{label && (
+					<label
+						className={styles.label}
+						htmlFor={`input${label}`}
+					>
+						{label}
+					</label>
+				)}
 			</div>
 		);
 	}

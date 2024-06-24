@@ -1,14 +1,8 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PropsWithChildren } from "react";
 
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false
-		}
-	}
-});
+import { queryClient } from "@/shared/api/query-client";
 
 export const ReactQueryProvider: React.FC<PropsWithChildren> = ({ children }) => {
 	return (

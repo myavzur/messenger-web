@@ -1,3 +1,5 @@
+import { IRegisterCredentialsBody } from "@/entities/auth/interfaces";
+
 export interface ICredentialsFormProps {
-	onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+	onSubmit: (data: IRegisterCredentialsBody) => void;
 }

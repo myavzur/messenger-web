@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { useUserQuery } from "@/entities/auth/lib/hooks";
+import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 
 import { PageLoader } from "@/shared/ui";
 
@@ -10,7 +10,7 @@ const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
 const MessengerScreen = React.lazy(() => import("@/screens/messenger"));
 
 export const RouterProvider: React.FC = () => {
-	const { isFetching, isSuccess } = useUserQuery();
+	const { isFetching, isSuccess } = useAuthorizeQuery();
 
 	if (isFetching) {
 		return <PageLoader captureText="Fetching Data..." />;

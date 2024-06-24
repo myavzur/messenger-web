@@ -1,37 +1,32 @@
-import React from "react";
+import { ElementType } from "react";
 
 import { Logo } from "@/shared/ui";
 
 import { IAuthFormLayoutProps } from "./AuthFormLayout.interface";
 import styles from "./AuthFormLayout.module.scss";
 
-/** Может рендерить как элемент <form> так и <div>.
- * Обуславливается тем, что при логине у нас простая форма, а на регистрации - мультистеп */
-export const AuthFormLayout: React.FC<IAuthFormLayoutProps> = ({
-	onSubmit,
+export const AuthFormLayout = <E extends ElementType>({
+	as,
+	footerElement,
 	children,
-	footerElement
-}) => {
-	const hasOnSubmit = typeof onSubmit === "function";
+	...formProps
+}: IAuthFormLayoutProps<E>) => {
+	const TagName = as || "form";
 
 	return (
 		<div className={styles.form}>
-			<div className={styles.form__header}>
+			<div className={styles.header}>
 				<Logo />
 			</div>
 
-			{hasOnSubmit ? (
-				<form
-					onSubmit={onSubmit}
-					className={styles.form__content}
-				>
-					{children}
-				</form>
-			) : (
-				<div className={styles.form__content}>{children}</div>
-			)}
+			<TagName
+				{...formProps}
+				className={styles.content}
+			>
+				{children}
+			</TagName>
 
-			<div className={styles.form__footer}>{footerElement}</div>
+			<div className={styles.footer}>{footerElement}</div>
 		</div>
 	);
 };

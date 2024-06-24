@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SingleSelectField } from "@/features/single-select-field/ui";
 
@@ -15,22 +15,27 @@ export const PersonalizeForm: React.FC<IPersonalizeFormProps> = ({
 	onSubmit,
 	onBack
 }) => {
-	const { register } = useForm<IRegisterPersonalizeBody>({
+	const { handleSubmit, register, formState } = useForm<IRegisterPersonalizeBody>({
 		mode: "onChange"
 	});
 
-	const [preferredHighlightColor, setPreferredHighlightColor] = useState(
+	const [highlightColor, setHighlightColor] = useState(
 		userThemeDictionary[UserTheme.SUNSET_ORANGE]
 	);
 
-	const handleSelectPreferredHighlightColor = (value: UserTheme) => {
-		setPreferredHighlightColor(userThemeDictionary[value]);
+	const handleSupplyData: SubmitHandler<IRegisterPersonalizeBody> = (data) => {
+		if (!formState.isValid) return;
+		onSubmit(data);
+	};
+
+	const handleSelectHighlightColor = (value: UserTheme) => {
+		setHighlightColor(userThemeDictionary[value]);
 	};
 
 	return (
 		<form
-			onSubmit={onSubmit}
-			className={styles["content-form"]}
+			onSubmit={handleSubmit(handleSupplyData)}
+			className={styles.form}
 		>
 			<legend>Personalize your Experience ✨</legend>
 
@@ -50,8 +55,8 @@ export const PersonalizeForm: React.FC<IPersonalizeFormProps> = ({
 			/>
 
 			<SingleSelectField
-				selectedValue={preferredHighlightColor}
-				onValueSelected={handleSelectPreferredHighlightColor}
+				selectedValue={highlightColor}
+				onValueSelected={handleSelectHighlightColor}
 				options={[
 					{
 						label: "Sunset Orange",

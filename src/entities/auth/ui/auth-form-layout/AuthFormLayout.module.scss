@@ -12,12 +12,13 @@
 	box-shadow: 10px 15px 25px rgba(#121212, 0.25);
 	background-color: var(--color-primary-900);
 
-	&__header {
+	.header {
 		display: flex;
 		justify-content: center;
 	}
 
-	&__content, &__footer {
+	.content,
+	.footer {
 		display: flex;
 		flex-direction: column;
 		align-content: center;

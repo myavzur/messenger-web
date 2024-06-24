@@ -1,7 +1,10 @@
-import React from "react";
+import { ComponentProps, ElementType, ReactNode } from "react";
 
-export interface IAuthFormLayoutProps {
-	onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
-	children?: React.ReactNode;
-	footerElement?: React.ReactNode;
+interface IAuthFormLayoutOwnProps<E extends ElementType = ElementType> {
+	as?: E;
+	footerElement?: ReactNode;
 }
+
+export type IAuthFormLayoutProps<E extends ElementType> =
+	IAuthFormLayoutOwnProps<E> &
+		Omit<ComponentProps<E>, keyof IAuthFormLayoutOwnProps>;

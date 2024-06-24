@@ -1,4 +1,6 @@
+import { IRegisterPersonalizeBody } from "@/entities/auth/interfaces";
+
 export interface IPersonalizeFormProps {
-	onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+	onSubmit: (data: IRegisterPersonalizeBody) => void;
 	onBack: () => void;
 }

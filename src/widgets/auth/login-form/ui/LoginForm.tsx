@@ -6,19 +6,13 @@ import { ILoginBody } from "@/entities/auth/interfaces";
 import { useLoginMutation } from "@/entities/auth/lib/hooks";
 import { AuthFormLayout } from "@/entities/auth/ui/auth-form-layout";
 import { CombinedTransferText } from "@/entities/auth/ui/combined-transfer-text";
+import { Socials } from "@/entities/auth/ui/socials";
 
-import { setAccessToken } from "@/shared/lib/helpers";
-import {
-	Button,
-	Divider,
-	Icon,
-	SocialButton,
-	TextAnchor,
-	TextField
-} from "@/shared/ui";
+import { Button, Divider, TextAnchor, TextField } from "@/shared/ui";
 
 export const LoginForm: React.FC = () => {
 	const navigate = useNavigate();
+	const loginMutation = useLoginMutation();
 
 	const {
 		register,
@@ -26,15 +20,12 @@ export const LoginForm: React.FC = () => {
 		formState: { isValid }
 	} = useForm<ILoginBody>({ mode: "onChange" });
 
-	const loginMutation = useLoginMutation();
-
 	const handleLogin: SubmitHandler<ILoginBody> = async (credentials) => {
 		if (!isValid) return;
 
 		try {
-			const response = await loginMutation.mutateAsync(credentials);
-			setAccessToken(response.data.access_token);
-			navigate("/chats");
+			await loginMutation.mutateAsync(credentials);
+			navigate("/messenger");
 		} catch (error) {
 			throw new Error("Network error");
 		}
@@ -42,19 +33,12 @@ export const LoginForm: React.FC = () => {
 
 	return (
 		<AuthFormLayout
+			as="form"
 			onSubmit={handleSubmit(handleLogin)}
 			footerElement={
 				<>
 					<Divider>or</Divider>
-
-					<SocialButton leftIconElement={<Icon name="socials/google" />}>
-						Continue with Google
-					</SocialButton>
-
-					<SocialButton leftIconElement={<Icon name="socials/facebook" />}>
-						Continue with Facebook
-					</SocialButton>
-
+					<Socials />
 					<CombinedTransferText
 						mainText="I didn't use WhisperFox earlier!"
 						transferText="Register"

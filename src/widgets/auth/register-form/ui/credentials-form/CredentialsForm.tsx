@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { IRegisterCredentialsBody } from "@/entities/auth/interfaces";
 
@@ -9,14 +9,19 @@ import styles from "../../styles/ContentForm.module.scss";
 import { ICredentialsFormProps } from "./CredentialsForm.interface";
 
 export const CredentialsForm: React.FC<ICredentialsFormProps> = ({ onSubmit }) => {
-	const { register } = useForm<IRegisterCredentialsBody>({
+	const { handleSubmit, register, formState } = useForm<IRegisterCredentialsBody>({
 		mode: "onChange"
 	});
 
+	const handleSupplyData: SubmitHandler<IRegisterCredentialsBody> = (data) => {
+		if (!formState.isValid) return;
+		onSubmit(data);
+	};
+
 	return (
 		<form
-			onSubmit={onSubmit}
-			className={styles["content-form"]}
+			onSubmit={handleSubmit(handleSupplyData)}
+			className={styles.form}
 		>
 			<legend>Create new Account</legend>
 			<TextField

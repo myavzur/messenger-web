@@ -7,10 +7,14 @@ import styles from "./SocialButton.module.scss";
 export const SocialButton: React.FC<ISocialButtonProps> = ({
 	leftIconElement,
 	children,
-	className
+	className,
+	...buttonProps
 }) => {
 	return (
-		<button className={cn(styles.social, className)}>
+		<button
+			{...buttonProps}
+			className={cn(styles.social, className)}
+		>
 			{leftIconElement && (
 				<div className={styles.social__icon}>{leftIconElement}</div>
 			)}
