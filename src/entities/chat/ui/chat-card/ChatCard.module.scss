@@ -1,0 +1,45 @@
+@import "@/app/styles/_mixins";
+
+.card {
+	display: flex;
+	align-items: center;
+	padding: var(--space-3);
+	background-color: transparent;
+
+
+	.image {
+		width: 40px;
+		height: 40px;
+		margin-right: var(--space-3);
+	}
+
+	.wrapper {
+		.top {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.title {
+				color: var(--color-secondary-1000);
+				font-size: 16px;
+
+				@include line-clamp(1);
+			}
+
+			.time {
+				color: var(--color-secondary-1000);
+				font-size: 12px;
+			}
+		}
+
+		.message {
+			color: var(--color-primary-300);
+			font-size: 16px;
+		}
+	}
+
+	&_active {
+		background-color: var(--color-primary-800);
+	}
+}

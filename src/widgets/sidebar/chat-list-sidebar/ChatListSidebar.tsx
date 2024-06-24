@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useLogout } from "@/entities/auth/lib/hooks";
 import { useChatsStore } from "@/entities/chat/store";
+import { ChatCard } from "@/entities/chat/ui/chat-card";
 
 import { useWebsocket } from "@/shared/context/websocket-context/hooks";
-import { Button, Icon, SidebarHeader } from "@/shared/ui";
+import { Button, Header, Icon } from "@/shared/ui";
 
 import styles from "./ChatListSidebar.module.scss";
 
 export const ChatListSidebar: React.FC = () => {
-	const navigate = useNavigate();
+	// const { data } = useAuthorizeQuery();
+
 	const logout = useLogout();
 	const { chatSocket } = useWebsocket();
 
@@ -32,21 +33,20 @@ export const ChatListSidebar: React.FC = () => {
 
 	return (
 		<aside className={styles.sidebar}>
-			<SidebarHeader className={styles.sidebarHeader}>
+			<Header className={styles.Header}>
 				<Button
 					leftIconElement={<Icon name="menu-dots" />}
 					onClick={logout}
 				/>
-			</SidebarHeader>
+			</Header>
 
 			<div className={styles.sidebarContent}>
 				{chats.map((chat) => (
-					<h1
+					<ChatCard
 						key={chat.id}
-						onClick={() => navigate(`/messenger/${chat.id}`)}
-					>
-						{chat.title}
-					</h1>
+						chat={chat}
+						currentUserId={"1"}
+					/>
 				))}
 			</div>
 		</aside>

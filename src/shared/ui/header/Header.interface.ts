@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export interface ISidebarHeaderProps {
+export interface IHeaderProps {
 	className?: string;
 	children?: ReactNode;
 }

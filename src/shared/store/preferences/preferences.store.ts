@@ -1,20 +1,18 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { IPreferencesStore } from "./preferences.interface";
+import { IPreferencesStore, Theme } from "./preferences.interface";
+
+const STORAGE_PREFERENCES_KEY = "preferences";
 
 export const usePreferencesStore = create<IPreferencesStore>()(
 	persist(
 		(set) => ({
-			theme: "winter",
-			setTheme: (theme) => set({ theme }),
-			toggleTheme: () =>
-				set((state) => ({
-					theme: state.theme === "insomnia" ? "winter" : "insomnia"
-				}))
+			theme: Theme.SYSTEM,
+			setTheme: (theme) => set({ theme })
 		}),
 		{
-			name: "preferences-storage",
+			name: STORAGE_PREFERENCES_KEY,
 			version: 1
 		}
 	)

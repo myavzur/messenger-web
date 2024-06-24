@@ -1,12 +1,15 @@
-export type ITheme = "insomnia" | "winter";
+export enum Theme {
+	INSOMNIA = "insomnia",
+	WINTER = "winter",
+	SYSTEM = "system"
+}
 
 interface IState {
-	theme: ITheme;
+	theme: Theme;
 }
 
 interface IActions {
-	setTheme: (theme: ITheme) => void;
-	toggleTheme: () => void;
+	setTheme: (theme: Theme) => void;
 }
 
 export type IPreferencesStore = IState & IActions;

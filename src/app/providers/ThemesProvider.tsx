@@ -1,6 +1,8 @@
-import React, { useLayoutEffect } from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 
+import { getThemeFromSystem } from "@/shared/lib/helpers";
 import { usePreferencesStore } from "@/shared/store/preferences";
+import { Theme } from "@/shared/store/preferences/preferences.interface";
 
 interface IAppThemeProps {
 	children?: React.ReactNode;
@@ -9,7 +11,7 @@ interface IAppThemeProps {
 export const ThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
 	const theme = usePreferencesStore((state) => state.theme);
 
-	useLayoutEffect(() => {
+	const updateBodyClasses = useCallback((theme: Theme) => {
 		const bodyClassList = document.body.classList;
 
 		// Delete all themes classes
@@ -20,7 +22,35 @@ export const ThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
 		});
 
 		bodyClassList.add(`theme_${theme}`);
-	}, [theme]);
+	}, []);
+
+	const handleSystemThemeChange = useCallback(
+		(event: MediaQueryListEvent) => {
+			if (theme !== Theme.SYSTEM) return;
+			updateBodyClasses(event.matches ? Theme.INSOMNIA : Theme.WINTER);
+		},
+		[theme, updateBodyClasses]
+	);
+
+	useLayoutEffect(() => {
+		const systemTheme = getThemeFromSystem();
+
+		if (theme === Theme.SYSTEM) {
+			updateBodyClasses(systemTheme);
+		} else {
+			updateBodyClasses(theme);
+		}
+
+		window
+			.matchMedia("(prefers-color-scheme: dark)")
+			.addEventListener("change", handleSystemThemeChange);
+
+		return () => {
+			window
+				.matchMedia("(prefers-color-scheme: dark)")
+				.removeEventListener("change", handleSystemThemeChange);
+		};
+	}, [theme, handleSystemThemeChange, updateBodyClasses]);
 
 	return children;
 };
