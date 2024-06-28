@@ -1,19 +1,28 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 import { IPreferencesStore, Theme } from "./preferences.interface";
 
 const STORAGE_PREFERENCES_KEY = "preferences";
 
 export const usePreferencesStore = create<IPreferencesStore>()(
-	persist(
-		(set) => ({
-			theme: Theme.SYSTEM,
-			setTheme: (theme) => set({ theme })
-		}),
+	devtools(
+		persist(
+			(set) => ({
+				theme: Theme.SYSTEM,
+				setTheme: (theme) => {
+					return set({ theme }, false, "preferences/set-theme");
+				}
+			}),
+			{
+				name: STORAGE_PREFERENCES_KEY,
+				version: 1
+			}
+		),
 		{
-			name: STORAGE_PREFERENCES_KEY,
-			version: 1
+			name: "preferences-store",
+			enabled: import.meta.env.DEV,
+			anonymousActionType: "unknown preferences action 🦊"
 		}
 	)
 );
