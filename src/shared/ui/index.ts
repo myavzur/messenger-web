@@ -5,6 +5,7 @@ export * from "./header";
 export * from "./icon";
 export * from "./image-circle";
 export * from "./logo";
+export * from "./message-embedded";
 export * from "./page-loader";
 export * from "./social-button";
 export * from "./text-anchor";

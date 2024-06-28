@@ -4,19 +4,23 @@ import { CSSTransition } from "react-transition-group";
 
 import { SendMessageForm } from "@/features/send-message-form/ui";
 
+import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
 import { useActiveChatStore } from "@/entities/chat/store/active-chat.store";
-import { MessageEmbedded } from "@/entities/chat/ui/message-embedded";
+import { ChatHeader } from "@/entities/chat/ui/chat-header";
+import { Message } from "@/entities/chat/ui/message";
 
-import { Header, ImageCircle } from "@/shared/ui";
+import { Header } from "@/shared/ui";
 
 import styles from "./MessengerChatScreen.module.scss";
 
 const MessengerChatScreen: FC = () => {
 	const params = useParams<{ polymorphicId: string }>();
+	const { data: userData } = useAuthorizeQuery();
 
 	const topMessageElementRef = useRef<HTMLDivElement>(null);
 
+	const chat = useActiveChatStore((state) => state.chat);
 	const messages = useActiveChatStore((state) => state.messages);
 	const setChat = useActiveChatStore((state) => state.setChat);
 	const setMessages = useActiveChatStore((state) => state.setMessages);
@@ -34,22 +38,31 @@ const MessengerChatScreen: FC = () => {
 	return (
 		<div className={styles.page}>
 			<div className={styles.chat}>
-				<Header className={styles.header}>
-					<ImageCircle
-						placeholderText="🦊"
-						src="https://picsum.photos/200"
-						alt="fox"
+				{chat && userData?.data && (
+					<ChatHeader
+						chat={chat}
+						currentUserId={userData?.data.id}
 					/>
-				</Header>
+				)}
 
 				<div className={styles.messages}>
 					{messages.length > 0 &&
-						messages.map((message) => (
-							<MessageEmbedded
-								key={message.id}
-								message={message}
-							/>
-						))}
+						messages.map((message) => {
+							const isOwn = message.user.id === userData?.data.id;
+							const isGroup = chat?.type === "group";
+
+							return (
+								<Message
+									key={message.id}
+									message={message}
+									isOwn={isOwn}
+									uiConfig={{
+										label: isGroup,
+										image: isGroup
+									}}
+								/>
+							);
+						})}
 					<div ref={topMessageElementRef}>Observe me UwU</div>
 				</div>
 

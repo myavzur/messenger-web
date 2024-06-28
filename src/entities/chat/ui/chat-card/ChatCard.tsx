@@ -1,9 +1,10 @@
 import cn from "classnames";
 import { FC } from "react";
 
-import { formatCreatedAtDate } from "@/shared/lib/helpers";
+import { formatUpdatedAtDate } from "@/shared/lib/helpers";
 import { ImageCircle } from "@/shared/ui";
 
+import { renderLastMessageText } from "../../lib/helpers/render-last-message-text";
 import { serializeChat } from "../../lib/helpers/serialize-chat";
 import { IChatCardProps } from "./ChatCard.interface";
 import styles from "./ChatCard.module.scss";
@@ -11,8 +12,7 @@ import styles from "./ChatCard.module.scss";
 export const ChatCard: FC<IChatCardProps> = ({
 	chat,
 	currentUserId,
-	isActive = false,
-	onClick
+	isActive = false
 }) => {
 	const serializedChat = serializeChat({ currentUserId, chat });
 	const lastMessage = serializedChat.last_message;
@@ -23,10 +23,7 @@ export const ChatCard: FC<IChatCardProps> = ({
 	}
 
 	return (
-		<div
-			className={cn(styles.card, { [styles.card_active]: isActive })}
-			onClick={() => onClick?.(chat)}
-		>
+		<div className={cn(styles.card, { [styles.card_active]: isActive })}>
 			<ImageCircle
 				className={styles.image}
 				src={serializedChat.image?.file_url}
@@ -34,15 +31,17 @@ export const ChatCard: FC<IChatCardProps> = ({
 				placeholderText={serializedChat.title!}
 			/>
 
-			<div className={styles.wrapper}>
+			<div className={styles.info}>
 				<div className={styles.top}>
 					<div className={styles.title}>{serializedChat.title}</div>
 					<div className={styles.time}>
-						{formatCreatedAtDate(lastMessage.created_at)}
+						{formatUpdatedAtDate(lastMessage.created_at)}
 					</div>
 				</div>
 
-				<div className={styles.message}>{lastMessage.text}</div>
+				<div className={styles.message}>
+					{renderLastMessageText({ chat, currentUserId })}
+				</div>
 			</div>
 		</div>
 	);

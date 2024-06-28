@@ -8,8 +8,6 @@ import { useChatsStore } from "@/entities/chat/store";
 
 import { Button, Header, Icon } from "@/shared/ui";
 
-import styles from "./ChatListSidebar.module.scss";
-
 export const ChatListSidebar: FC = () => {
 	const { data: authData } = useAuthorizeQuery();
 
@@ -27,7 +25,7 @@ export const ChatListSidebar: FC = () => {
 	}, [receiveChatList]);
 
 	return (
-		<div className={styles.sidebar}>
+		<>
 			<Header>
 				<Button
 					leftIconElement={<Icon name="ui/menu-dots" />}
@@ -35,16 +33,14 @@ export const ChatListSidebar: FC = () => {
 				/>
 			</Header>
 
-			<div className={styles.sidebarContent}>
-				{authData?.data &&
-					chats.map((chat) => (
-						<ChatCardAnchor
-							key={chat.id}
-							chat={chat}
-							currentUserId={authData.data.id}
-						/>
-					))}
-			</div>
-		</div>
+			{authData?.data &&
+				chats.map((chat) => (
+					<ChatCardAnchor
+						key={chat.id}
+						chat={chat}
+						currentUserId={authData.data.id}
+					/>
+				))}
+		</>
 	);
 };

@@ -1,0 +1,65 @@
+.message {
+	--highlight-color: var(--color-accent-1000);
+	display: flex;
+
+	.image {
+		margin: 0 var(--space-3) 0 0;
+		align-self: flex-end;
+	}
+
+	.content {
+		position: relative;
+		background-color: var(--color-primary-800);
+		border-radius: var(--rounded-2) var(--rounded-2) var(--rounded-2) 0;
+
+		.row + .row {
+			margin-top: var(--space-2);
+		}
+
+		.row {
+			padding: 0 var(--space-2);
+
+			&:first-child {
+				padding-top: var(--space-2);
+			}
+
+			&:nth-last-child(2) {
+				padding-bottom: var(--space-2);
+			}
+		}
+
+		.label {
+			color: var(--highlight-color);
+		}
+
+		.attachments {}
+
+		.text {
+			color: var(--color-secondary-1000);
+		}
+
+		.appendix {
+			position: absolute;
+			width: 15px;
+			height: 15px;
+			left: -14px;
+			bottom: 0px;
+		}
+	}
+
+	&_own {
+		.image {
+			order: 2;
+			margin: 0 0 0 var(--space-3);
+		}
+
+		.content {
+			border-radius: var(--rounded-2) var(--rounded-2) 0 var(--rounded-2);
+
+			.appendix {
+				transform: rotateY(180deg);
+				left: calc(100%);
+			}
+		}
+	}
+}

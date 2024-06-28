@@ -21,6 +21,7 @@ export const serializeChat = ({
 	return {
 		...chat,
 		image: withUser.avatar,
-		title: withUser.account_name
+		title: withUser.account_name,
+		user_last_seen_at: withUser.last_seen_at
 	};
 };

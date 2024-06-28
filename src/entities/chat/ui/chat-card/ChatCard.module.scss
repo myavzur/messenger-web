@@ -5,7 +5,6 @@
 	align-items: center;
 	padding: var(--space-3);
 	background-color: transparent;
-	cursor: pointer;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
 
@@ -22,12 +21,13 @@
 		margin-right: var(--space-3);
 	}
 
-	.wrapper {
+	.info {
+		flex-grow: 1;
+
 		.top {
-			width: 100%;
-			display: flex;
+			display: grid;
+			grid-template-columns: 1fr auto;
 			align-items: center;
-			justify-content: space-between;
 
 			.title {
 				color: var(--color-secondary-1000);
@@ -37,7 +37,7 @@
 			}
 
 			.time {
-				color: var(--color-secondary-1000);
+				color: var(--color-primary-300);
 				font-size: 12px;
 			}
 		}

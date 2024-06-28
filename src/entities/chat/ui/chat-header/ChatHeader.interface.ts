@@ -2,8 +2,7 @@ import { IUser } from "@/entities/user/interfaces";
 
 import { IChat } from "../../interfaces";
 
-export interface IChatCardProps {
+export interface IChatHeaderProps {
 	chat: IChat;
 	currentUserId: IUser["id"];
-	isActive?: boolean;
 }

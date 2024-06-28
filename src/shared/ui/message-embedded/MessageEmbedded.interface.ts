@@ -1,4 +1,4 @@
-import { IMessage } from "../../interfaces";
+import { IMessage } from "../../../entities/chat/interfaces";
 
 export interface IMessageEmbeddedProps {
 	message: IMessage;

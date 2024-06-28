@@ -1,0 +1,25 @@
+.content {
+	display: grid;
+	align-items: center;
+	grid-template-areas:
+		"image title"
+		"image info";
+
+	.image {
+		grid-area: image;
+		margin-right: var(--space-3);
+	}
+
+	.title {
+		grid-area: title;
+		font-size: 16px;
+		color: var(--color-secondary-1000);
+	}
+
+	.info {
+		grid-area: info;
+		font-size: 14px;
+		color: var(--color-primary-300);
+		margin-top: var(--space-1);
+	}
+}
