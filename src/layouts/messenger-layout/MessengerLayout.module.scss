@@ -2,6 +2,7 @@
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+	border: 1px solid var(--color-primary-700);
 }
 
 .container {
@@ -9,4 +10,15 @@
 	max-width: 1280px;
 	height: 100%;
 	margin: 0 auto;
+	background-color: var(--color-primary-900);
+}
+
+.sidebar {
+	min-width: 310px;
+	max-width: 310px;
+	border-left: 1px solid var(--color-primary-700);
+}
+
+.main {
+	width: 100%;
 }

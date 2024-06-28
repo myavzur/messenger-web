@@ -34,7 +34,7 @@ export const ChatListSidebar: React.FC = () => {
 
 	return (
 		<div className={styles.sidebar}>
-			<Header className={styles.Header}>
+			<Header>
 				<Button
 					leftIconElement={<Icon name="menu-dots" />}
 					onClick={logout}
