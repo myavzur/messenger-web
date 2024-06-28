@@ -1,6 +1,7 @@
 import { FC, Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { AuthLayout } from "@/layouts/auth-layout";
 import { MessengerLayout } from "@/layouts/messenger-layout";
 
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
@@ -39,7 +40,7 @@ export const RouterProvider: FC = () => {
 
 					<Route
 						path="/auth"
-						element={isSuccess && <Navigate to="/" />}
+						element={!isSuccess ? <AuthLayout /> : <Navigate to="/" />}
 					>
 						<Route
 							path="login"

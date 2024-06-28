@@ -1,7 +1,12 @@
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
+import { Outlet } from "react-router-dom";
 
 import styles from "./AuthLayout.module.scss";
 
-export const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
-	return <div className={styles.page}>{children}</div>;
+export const AuthLayout: FC = () => {
+	return (
+		<div className={styles.page}>
+			<Outlet />
+		</div>
+	);
 };

@@ -1,13 +1,7 @@
-import { AuthLayout } from "@/layouts/auth-layout";
-
 import { RegisterForm } from "@/widgets/auth/register-form/ui";
 
 const RegisterScreen = () => {
-	return (
-		<AuthLayout>
-			<RegisterForm />
-		</AuthLayout>
-	);
+	return <RegisterForm />;
 };
 
 export default RegisterScreen;
