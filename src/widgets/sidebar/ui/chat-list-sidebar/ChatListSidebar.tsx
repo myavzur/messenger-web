@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { useLogout } from "@/entities/auth/lib/hooks";
+import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
 import { useChatsStore } from "@/entities/chat/store";
 import { ChatCard } from "@/entities/chat/ui/chat-card";
 
@@ -10,7 +10,7 @@ import { Button, Header, Icon } from "@/shared/ui";
 import styles from "./ChatListSidebar.module.scss";
 
 export const ChatListSidebar: React.FC = () => {
-	// const { data } = useAuthorizeQuery();
+	const { data: authData } = useAuthorizeQuery();
 
 	const logout = useLogout();
 	const { chatSocket } = useWebsocket();
@@ -41,13 +41,14 @@ export const ChatListSidebar: React.FC = () => {
 			</Header>
 
 			<div className={styles.sidebarContent}>
-				{chats.map((chat) => (
-					<ChatCard
-						key={chat.id}
-						chat={chat}
-						currentUserId={"1"}
-					/>
-				))}
+				{authData?.data &&
+					chats.map((chat) => (
+						<ChatCard
+							key={chat.id}
+							chat={chat}
+							currentUserId={authData.data.id}
+						/>
+					))}
 			</div>
 		</aside>
 	);

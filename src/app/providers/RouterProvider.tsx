@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { MessengerLayout } from "@/layouts/messenger-layout";
+
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 
 import { PageLoader } from "@/shared/ui";
@@ -8,11 +10,12 @@ import { PageLoader } from "@/shared/ui";
 const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
 const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
 const MessengerScreen = React.lazy(() => import("@/screens/messenger"));
+const MessengerChatScreen = React.lazy(() => import("@/screens/messenger-chat"));
 
 export const RouterProvider: React.FC = () => {
-	const { isFetching, isSuccess } = useAuthorizeQuery();
+	const { isLoading, isSuccess } = useAuthorizeQuery();
 
-	if (isFetching) {
+	if (isLoading) {
 		return <PageLoader captureText="Fetching Data..." />;
 	}
 
@@ -21,18 +24,22 @@ export const RouterProvider: React.FC = () => {
 			<Suspense fallback={<PageLoader captureText="Loading Page..." />}>
 				<Routes>
 					<Route
-						path="/messenger"
-						element={!isSuccess && <Navigate to="/auth/login" />}
+						path="/"
+						element={isSuccess ? <MessengerLayout /> : <Navigate to="/auth/login" />}
 					>
 						<Route
 							index
 							element={<MessengerScreen />}
 						/>
+						<Route
+							path="c/:polymorphicId"
+							element={<MessengerChatScreen />}
+						/>
 					</Route>
 
 					<Route
 						path="/auth"
-						element={isSuccess && <Navigate to="/messenger" />}
+						element={isSuccess && <Navigate to="/" />}
 					>
 						<Route
 							path="login"
@@ -46,7 +53,7 @@ export const RouterProvider: React.FC = () => {
 
 					<Route
 						path="*"
-						element={<Navigate to="/messenger" />}
+						element={<Navigate to="/" />}
 					/>
 				</Routes>
 			</Suspense>
