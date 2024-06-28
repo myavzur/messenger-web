@@ -1,53 +1,56 @@
-import { FC, useCallback, useLayoutEffect, useState } from "react";
+import { FC, useLayoutEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
 import { SendMessageForm } from "@/features/send-message-form/ui";
 
-import { IChat } from "@/entities/chat/interfaces";
+import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
+import { useActiveChatStore } from "@/entities/chat/store/active-chat.store";
+import { MessageEmbedded } from "@/entities/chat/ui/message-embedded";
 
-import { useWebsocket } from "@/shared/context/websocket-context/hooks";
 import { Header, ImageCircle } from "@/shared/ui";
 
 import styles from "./MessengerChatScreen.module.scss";
 
 const MessengerChatScreen: FC = () => {
 	const params = useParams<{ polymorphicId: string }>();
-	const { chatSocket } = useWebsocket();
 
-	// TODO: Remove temp
-	const [isInfoOpen, setIsInfoOpen] = useState(false);
+	const topMessageElementRef = useRef<HTMLDivElement>(null);
 
-	const receiveChatById = useCallback(
-		(id: IChat["id"]) => {
-			chatSocket?.emit("get-chat", { polymorphicId: id }, (data: IChat) => {
-				console.log(data);
-			});
-		},
-		[chatSocket]
-	);
+	const messages = useActiveChatStore((state) => state.messages);
+	const setChat = useActiveChatStore((state) => state.setChat);
+	const setMessages = useActiveChatStore((state) => state.setMessages);
+
+	const { receiveChatWithHistory } = useReceiveChatWithHistoryEvent({
+		onChatReceived: setChat,
+		onMessagesReceived: setMessages
+	});
 
 	useLayoutEffect(() => {
 		if (!params.polymorphicId) return;
-		receiveChatById(params.polymorphicId);
-	}, [params, receiveChatById]);
+		receiveChatWithHistory(params.polymorphicId);
+	}, [params, receiveChatWithHistory]);
 
 	return (
 		<div className={styles.page}>
 			<div className={styles.chat}>
-				<div onClick={() => setIsInfoOpen(true)}>
-					<Header className={styles.header}>
-						<ImageCircle
-							placeholderText="🦊"
-							src="https://picsum.photos/200"
-							alt="fox"
-						/>
-					</Header>
-				</div>
+				<Header className={styles.header}>
+					<ImageCircle
+						placeholderText="🦊"
+						src="https://picsum.photos/200"
+						alt="fox"
+					/>
+				</Header>
 
 				<div className={styles.messages}>
-					<p>Message</p>
-					<p>Message 2</p>
+					{messages.length > 0 &&
+						messages.map((message) => (
+							<MessageEmbedded
+								key={message.id}
+								message={message}
+							/>
+						))}
+					<div ref={topMessageElementRef}>Observe me UwU</div>
 				</div>
 
 				<div className={styles.form}>
@@ -56,7 +59,7 @@ const MessengerChatScreen: FC = () => {
 			</div>
 
 			<CSSTransition
-				in={isInfoOpen}
+				in={false}
 				timeout={300}
 				classNames={{
 					enter: styles.infoEnter,
@@ -69,10 +72,7 @@ const MessengerChatScreen: FC = () => {
 				mountOnEnter={true}
 				unmountOnExit={true}
 			>
-				<div
-					className={styles.info}
-					onClick={() => setIsInfoOpen(false)}
-				>
+				<div className={styles.info}>
 					<Header>Информация!</Header>
 				</div>
 			</CSSTransition>

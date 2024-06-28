@@ -9,7 +9,7 @@ interface IState {
 interface IActions {
 	setChat: (chat: IChat) => void;
 	setMessages: (messages: IMessage[]) => void;
-	addMessage: (message: IMessage) => void;
+	addMessages: (message: IMessage[]) => void;
 	removeMessages: (payload: {
 		chatId: IChat["id"];
 		messageIds: IMessage["id"][];

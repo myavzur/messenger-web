@@ -1,11 +1,11 @@
-import { FC, useEffect } from "react";
+import { FC, useLayoutEffect } from "react";
 
 import { ChatCardAnchor } from "@/features/chat-card-anchor/ui";
 
 import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
+import { useReceiveChatListEvent } from "@/entities/chat/lib/hooks";
 import { useChatsStore } from "@/entities/chat/store";
 
-import { useWebsocket } from "@/shared/context/websocket-context/hooks";
 import { Button, Header, Icon } from "@/shared/ui";
 
 import styles from "./ChatListSidebar.module.scss";
@@ -14,23 +14,17 @@ export const ChatListSidebar: FC = () => {
 	const { data: authData } = useAuthorizeQuery();
 
 	const logout = useLogout();
-	const { chatSocket } = useWebsocket();
 
 	const chats = useChatsStore((state) => state.chats);
 	const setChats = useChatsStore((state) => state.setChats);
 
-	useEffect(() => {
-		chatSocket?.emit(
-			"get-chats",
-			{
-				limit: 30,
-				page: 1
-			},
-			(data) => {
-				setChats(data.chats);
-			}
-		);
-	}, [chatSocket, setChats]);
+	const { receiveChatList } = useReceiveChatListEvent({
+		onChatListReceived: setChats
+	});
+
+	useLayoutEffect(() => {
+		receiveChatList();
+	}, [receiveChatList]);
 
 	return (
 		<div className={styles.sidebar}>

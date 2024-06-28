@@ -28,10 +28,10 @@ export const useActiveChatStore = create<IActiveChatStore>()(
 					"active-chat/set-messages"
 				);
 			},
-			addMessage: (message) => {
+			addMessages: (messages) => {
 				set(
 					(state) => {
-						state.messages.push(message);
+						state.messages.push(...messages);
 					},
 					false,
 					"active-chat/add-message"
