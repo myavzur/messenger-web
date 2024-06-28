@@ -1,7 +1,7 @@
 export interface IIconProps {
 	name: IIconName;
 	className?: string;
-	/** transform: rotate(180deg) */
+	/** Применяет CSS трансформацию: rotate(180deg) */
 	isMirrored?: boolean;
 	width?: string;
 	height?: string;
@@ -9,30 +9,30 @@ export interface IIconProps {
 }
 
 export type IIconName =
-	| "appendix"
-	| "arrow-right"
-	| "attach"
-	| "brush"
-	| "check"
-	| "close"
-	| "copy"
-	| "door-out"
-	| "edit"
-	| "eye"
-	| "eye-crossed"
-	| "file"
-	| "generate"
-	| "image"
-	| "menu-dots"
-	| "mention"
-	| "moon-stars"
-	| "phone"
-	| "pin"
-	| "reply"
-	| "search-eye"
-	| "trash-bin"
-	| "user-gear"
-	| "user-ninja"
-	| "verified"
+	| "controls/attach"
+	| "controls/close"
+	| "controls/copy"
+	| "controls/door-out"
+	| "controls/edit"
+	| "controls/folder-plus"
+	| "controls/pin"
+	| "controls/reply"
+	| "controls/search-eye"
+	| "controls/trash-bin"
+	| "controls/user-gear"
+	| "controls/user-ninja"
+	| "file/file"
+	| "file/image"
 	| "socials/facebook"
-	| "socials/google";
+	| "socials/google"
+	| "ui/appendix"
+	| "ui/arrow-right"
+	| "ui/brush"
+	| "ui/check"
+	| "ui/eye"
+	| "ui/eye-crossed"
+	| "ui/menu-dots"
+	| "ui/mention"
+	| "ui/moon-stars"
+	| "ui/phone"
+	| "ui/verified";

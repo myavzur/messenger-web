@@ -36,7 +36,7 @@ export const ChatListSidebar: FC = () => {
 		<div className={styles.sidebar}>
 			<Header>
 				<Button
-					leftIconElement={<Icon name="menu-dots" />}
+					leftIconElement={<Icon name="ui/menu-dots" />}
 					onClick={logout}
 				/>
 			</Header>

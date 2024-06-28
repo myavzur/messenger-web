@@ -75,7 +75,7 @@ export const PersonalizeForm: FC<IPersonalizeFormProps> = ({ onSubmit, onBack })
 					onClick={onBack}
 					leftIconElement={
 						<Icon
-							name="arrow-right"
+							name="ui/arrow-right"
 							isMirrored={true}
 						/>
 					}
