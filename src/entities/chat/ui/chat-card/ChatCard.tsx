@@ -1,3 +1,4 @@
+import cn from "classnames";
 import React from "react";
 
 import { formatCreatedAtDate } from "@/shared/lib/helpers";
@@ -7,7 +8,12 @@ import { serializeChat } from "../../lib/helpers/serialize-chat";
 import { IChatCardProps } from "./ChatCard.interface";
 import styles from "./ChatCard.module.scss";
 
-export const ChatCard: React.FC<IChatCardProps> = ({ chat, currentUserId }) => {
+export const ChatCard: React.FC<IChatCardProps> = ({
+	chat,
+	currentUserId,
+	isActive = false,
+	onClick
+}) => {
 	const serializedChat = serializeChat({ currentUserId, chat });
 	const lastMessage = serializedChat.last_message;
 
@@ -17,7 +23,10 @@ export const ChatCard: React.FC<IChatCardProps> = ({ chat, currentUserId }) => {
 	}
 
 	return (
-		<div className={styles.card}>
+		<div
+			className={cn(styles.card, { [styles.card_active]: isActive })}
+			onClick={() => onClick?.(chat)}
+		>
 			<ImageCircle
 				className={styles.image}
 				src={serializedChat.image?.file_url}

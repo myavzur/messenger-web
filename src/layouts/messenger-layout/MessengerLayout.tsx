@@ -9,11 +9,11 @@ export const MessengerLayout: React.FC = () => {
 	return (
 		<div className={styles.layout}>
 			<div className={styles.container}>
-				<div className={styles.sidebar}>{renderSidebarContent()}</div>
+				<aside className={styles.sidebar}>{renderSidebarContent()}</aside>
 
-				<div className={styles.main}>
+				<main className={styles.main}>
 					<Outlet />
-				</div>
+				</main>
 			</div>
 		</div>
 	);

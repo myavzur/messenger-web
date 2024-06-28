@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 
+import { ChatCardAnchor } from "@/features/chat-card-anchor/ui";
+
 import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
 import { useChatsStore } from "@/entities/chat/store";
-import { ChatCard } from "@/entities/chat/ui/chat-card";
 
 import { useWebsocket } from "@/shared/context/websocket-context/hooks";
 import { Button, Header, Icon } from "@/shared/ui";
@@ -32,7 +33,7 @@ export const ChatListSidebar: React.FC = () => {
 	}, [chatSocket, setChats]);
 
 	return (
-		<aside className={styles.sidebar}>
+		<div className={styles.sidebar}>
 			<Header className={styles.Header}>
 				<Button
 					leftIconElement={<Icon name="menu-dots" />}
@@ -43,13 +44,13 @@ export const ChatListSidebar: React.FC = () => {
 			<div className={styles.sidebarContent}>
 				{authData?.data &&
 					chats.map((chat) => (
-						<ChatCard
+						<ChatCardAnchor
 							key={chat.id}
 							chat={chat}
 							currentUserId={authData.data.id}
 						/>
 					))}
 			</div>
-		</aside>
+		</div>
 	);
 };
