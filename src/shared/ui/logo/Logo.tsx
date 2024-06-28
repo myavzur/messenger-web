@@ -1,10 +1,10 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { ILogoProps } from "./Logo.interface";
 import styles from "./Logo.module.scss";
 
-export const Logo: React.FC<ILogoProps> = ({ size, className }) => {
+export const Logo: FC<ILogoProps> = ({ size, className }) => {
 	return (
 		<span
 			className={cn(

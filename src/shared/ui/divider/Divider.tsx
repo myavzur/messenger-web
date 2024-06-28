@@ -1,10 +1,10 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { IDividerProps } from "./Divider.interface";
 import styles from "./Divider.module.scss";
 
-export const Divider: React.FC<IDividerProps> = ({ children, className }) => {
+export const Divider: FC<IDividerProps> = ({ children, className }) => {
 	return (
 		<div className={cn(styles.divider, className)}>
 			<div className={styles.divider__overlay}></div>

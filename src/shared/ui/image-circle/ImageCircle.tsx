@@ -1,5 +1,5 @@
 import cn from "classnames";
-import React, { useState } from "react";
+import { FC, useState } from "react";
 
 import { getElementFromArrayByStringHash, getInitials } from "@/shared/lib/helpers";
 
@@ -22,7 +22,7 @@ const fillColors = [
 	"#577889"
 ];
 
-export const ImageCircle: React.FC<IImageCircleProps> = ({
+export const ImageCircle: FC<IImageCircleProps> = ({
 	placeholderText,
 	src,
 	className,

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useMemo, useState } from "react";
+import { FC, PropsWithChildren, useCallback, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 
 import authService from "@/entities/auth/services/auth.service";
@@ -12,7 +12,7 @@ const PRESENCE_URL = import.meta.env.VITE_PRESENCE_SERVER_URL;
 
 type IConnectionName = "chat_connection" | "presence_connection";
 
-export const WebSocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
+export const WebSocketProvider: FC<PropsWithChildren> = ({ children }) => {
 	const openConnection = useMemo(() => {
 		return (connectionName: IConnectionName, connectionUrl: string) => {
 			const accessToken = authService.getAccessToken();

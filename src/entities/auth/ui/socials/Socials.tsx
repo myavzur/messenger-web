@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
 import { Icon, SocialButton } from "@/shared/ui";
 
-export const Socials: React.FC = () => {
+export const Socials: FC = () => {
 	const handleGoogleAuth = () => {
 		console.log("Google");
 	};

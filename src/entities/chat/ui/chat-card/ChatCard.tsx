@@ -1,5 +1,5 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { formatCreatedAtDate } from "@/shared/lib/helpers";
 import { ImageCircle } from "@/shared/ui";
@@ -8,7 +8,7 @@ import { serializeChat } from "../../lib/helpers/serialize-chat";
 import { IChatCardProps } from "./ChatCard.interface";
 import styles from "./ChatCard.module.scss";
 
-export const ChatCard: React.FC<IChatCardProps> = ({
+export const ChatCard: FC<IChatCardProps> = ({
 	chat,
 	currentUserId,
 	isActive = false,

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { IRegisterCredentialsBody } from "@/entities/auth/interfaces";
@@ -12,7 +12,7 @@ import styles from "../styles/ContentForm.module.scss";
 import { IRegisterFormProps } from "./RegisterForm.interface";
 import { CredentialsForm } from "./credentials-form";
 
-export const RegisterForm: React.FC<IRegisterFormProps> = () => {
+export const RegisterForm: FC<IRegisterFormProps> = () => {
 	const handleNewData = (
 		data: IRegisterCredentialsBody | IRegisterCredentialsBody
 	) => {

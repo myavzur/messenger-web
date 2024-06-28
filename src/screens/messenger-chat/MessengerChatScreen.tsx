@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import { FC, useCallback, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
@@ -11,7 +11,7 @@ import { Header, ImageCircle } from "@/shared/ui";
 
 import styles from "./MessengerChatScreen.module.scss";
 
-const MessengerChatScreen: React.FC = () => {
+const MessengerChatScreen: FC = () => {
 	const params = useParams<{ polymorphicId: string }>();
 	const { chatSocket } = useWebsocket();
 

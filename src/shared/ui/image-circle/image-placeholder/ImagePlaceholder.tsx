@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
 import { IImagePlaceholderProps } from "./ImagePlaceholder.interface";
 
-const ImagePlaceholder: React.FC<IImagePlaceholderProps> = ({ fillColor, text }) => {
+const ImagePlaceholder: FC<IImagePlaceholderProps> = ({ fillColor, text }) => {
 	return (
 		<svg
 			viewBox="0 0 100 100"

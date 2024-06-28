@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 export interface IButtonGroupProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	className?: string;
 	gridType?: "auto-1fr";
 }

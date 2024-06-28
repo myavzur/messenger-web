@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { FC, Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { MessengerLayout } from "@/layouts/messenger-layout";
@@ -7,12 +7,12 @@ import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 
 import { PageLoader } from "@/shared/ui";
 
-const LoginScreen = React.lazy(() => import("@/screens/auth/login"));
-const RegisterScreen = React.lazy(() => import("@/screens/auth/register"));
-const MessengerScreen = React.lazy(() => import("@/screens/messenger"));
-const MessengerChatScreen = React.lazy(() => import("@/screens/messenger-chat"));
+const LoginScreen = lazy(() => import("@/screens/auth/login"));
+const RegisterScreen = lazy(() => import("@/screens/auth/register"));
+const MessengerScreen = lazy(() => import("@/screens/messenger"));
+const MessengerChatScreen = lazy(() => import("@/screens/messenger-chat"));
 
-export const RouterProvider: React.FC = () => {
+export const RouterProvider: FC = () => {
 	const { isLoading, isSuccess } = useAuthorizeQuery();
 
 	if (isLoading) {

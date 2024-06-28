@@ -1,10 +1,10 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { IButtonGroupProps } from "./ButtonGroup.interface";
 import styles from "./ButtonGroup.module.scss";
 
-export const ButtonGroup: React.FC<IButtonGroupProps> = ({
+export const ButtonGroup: FC<IButtonGroupProps> = ({
 	children,
 	className,
 	gridType

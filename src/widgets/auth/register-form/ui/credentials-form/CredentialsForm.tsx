@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { IRegisterCredentialsBody } from "@/entities/auth/interfaces";
@@ -8,7 +8,7 @@ import { Button, TextField } from "@/shared/ui";
 import styles from "../../styles/ContentForm.module.scss";
 import { ICredentialsFormProps } from "./CredentialsForm.interface";
 
-export const CredentialsForm: React.FC<ICredentialsFormProps> = ({ onSubmit }) => {
+export const CredentialsForm: FC<ICredentialsFormProps> = ({ onSubmit }) => {
 	const { handleSubmit, register, formState } = useForm<IRegisterCredentialsBody>({
 		mode: "onChange"
 	});

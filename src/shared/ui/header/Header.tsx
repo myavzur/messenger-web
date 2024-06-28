@@ -1,9 +1,9 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { IHeaderProps } from "./Header.interface";
 import styles from "./Header.module.scss";
 
-export const Header: React.FC<IHeaderProps> = ({ children, className }) => {
+export const Header: FC<IHeaderProps> = ({ children, className }) => {
 	return <header className={cn(styles.header, className)}>{children}</header>;
 };

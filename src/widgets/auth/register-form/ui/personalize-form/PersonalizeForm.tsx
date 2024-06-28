@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SingleSelectField } from "@/features/single-select-field/ui";
@@ -11,10 +11,7 @@ import { Button, ButtonGroup, Icon, TextField } from "@/shared/ui";
 import styles from "../../styles/ContentForm.module.scss";
 import { IPersonalizeFormProps } from "./PersonalizeForm.interface";
 
-export const PersonalizeForm: React.FC<IPersonalizeFormProps> = ({
-	onSubmit,
-	onBack
-}) => {
+export const PersonalizeForm: FC<IPersonalizeFormProps> = ({ onSubmit, onBack }) => {
 	const { handleSubmit, register, formState } = useForm<IRegisterPersonalizeBody>({
 		mode: "onChange"
 	});

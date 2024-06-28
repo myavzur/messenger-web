@@ -1,10 +1,10 @@
-import React from "react";
+import { FC } from "react";
 
 import { AuthLayout } from "@/layouts/auth-layout";
 
 import { LoginForm } from "@/widgets/auth/login-form/ui";
 
-const LoginScreen: React.FC = () => {
+const LoginScreen: FC = () => {
 	return (
 		<AuthLayout>
 			<LoginForm />

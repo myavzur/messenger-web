@@ -1,14 +1,10 @@
-import React, { useCallback, useLayoutEffect } from "react";
+import { FC, PropsWithChildren, useCallback, useLayoutEffect } from "react";
 
 import { getThemeFromSystem } from "@/shared/lib/helpers";
 import { usePreferencesStore } from "@/shared/store/preferences";
 import { Theme } from "@/shared/store/preferences/preferences.interface";
 
-interface IAppThemeProps {
-	children?: React.ReactNode;
-}
-
-export const ThemesProvider: React.FC<IAppThemeProps> = ({ children }) => {
+export const ThemesProvider: FC<PropsWithChildren> = ({ children }) => {
 	const theme = usePreferencesStore((state) => state.theme);
 
 	const updateBodyClasses = useCallback((theme: Theme) => {

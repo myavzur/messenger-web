@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 import { ChatCardAnchor } from "@/features/chat-card-anchor/ui";
 
@@ -10,7 +10,7 @@ import { Button, Header, Icon } from "@/shared/ui";
 
 import styles from "./ChatListSidebar.module.scss";
 
-export const ChatListSidebar: React.FC = () => {
+export const ChatListSidebar: FC = () => {
 	const { data: authData } = useAuthorizeQuery();
 
 	const logout = useLogout();

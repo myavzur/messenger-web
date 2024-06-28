@@ -1,11 +1,11 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { IIconProps } from "./Icon.interface";
 import styles from "./Icon.module.scss";
 import sprite from "./assets/sprite.svg";
 
-export const Icon: React.FC<IIconProps> = ({
+export const Icon: FC<IIconProps> = ({
 	name,
 	isMirrored,
 	className,

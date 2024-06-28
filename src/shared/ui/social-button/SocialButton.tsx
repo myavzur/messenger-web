@@ -1,10 +1,10 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 
 import { ISocialButtonProps } from "./SocialButton.interface";
 import styles from "./SocialButton.module.scss";
 
-export const SocialButton: React.FC<ISocialButtonProps> = ({
+export const SocialButton: FC<ISocialButtonProps> = ({
 	leftIconElement,
 	children,
 	className,

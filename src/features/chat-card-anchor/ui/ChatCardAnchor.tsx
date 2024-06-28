@@ -1,11 +1,11 @@
-import React from "react";
+import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
 import { ChatCard } from "@/entities/chat/ui/chat-card";
 
 import { IChatCardAnchorProps } from "./ChatCardAnchor.interface";
 
-export const ChatCardAnchor: React.FC<IChatCardAnchorProps> = ({
+export const ChatCardAnchor: FC<IChatCardAnchorProps> = ({
 	chat,
 	currentUserId
 }) => {

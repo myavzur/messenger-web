@@ -1,9 +1,9 @@
-import React from "react";
+import { FC } from "react";
 
 import { IPageLoaderProps } from "./PageLoader.interface";
 import styles from "./PageLoader.module.scss";
 
-export const PageLoader: React.FC<IPageLoaderProps> = ({ captureText }) => {
+export const PageLoader: FC<IPageLoaderProps> = ({ captureText }) => {
 	return (
 		<div className={styles.page}>
 			<div className={styles.page__content}>

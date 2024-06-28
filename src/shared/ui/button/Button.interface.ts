@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	children?: string;
-	leftIconElement?: React.ReactNode;
+	leftIconElement?: ReactNode;
 	kind?: "silent";
 }

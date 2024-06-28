@@ -1,11 +1,11 @@
-import React from "react";
+import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
 import { renderSidebarContent } from "@/widgets/sidebar/lib";
 
 import styles from "./MessengerLayout.module.scss";
 
-export const MessengerLayout: React.FC = () => {
+export const MessengerLayout: FC = () => {
 	return (
 		<div className={styles.layout}>
 			<div className={styles.container}>

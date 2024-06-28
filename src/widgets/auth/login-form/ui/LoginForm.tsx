@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ import { Socials } from "@/entities/auth/ui/socials";
 
 import { Button, Divider, TextAnchor, TextField } from "@/shared/ui";
 
-export const LoginForm: React.FC = () => {
+export const LoginForm: FC = () => {
 	const navigate = useNavigate();
 	const loginMutation = useLoginMutation();
 

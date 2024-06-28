@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { useClickOutside } from "@/shared/lib/hooks";
@@ -7,7 +7,7 @@ import { TextField } from "@/shared/ui";
 import { ISingleSelectFieldProps } from "./SingleSelectField.interface";
 import styles from "./SingleSelectField.module.scss";
 
-export const SingleSelectField: React.FC<ISingleSelectFieldProps> = ({
+export const SingleSelectField: FC<ISingleSelectFieldProps> = ({
 	selectedValue,
 	onValueSelected,
 	options

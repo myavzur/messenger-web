@@ -1,11 +1,11 @@
 import cn from "classnames";
-import React from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 
 import { ITextAnchorProps } from "./TextAnchor.interface";
 import styles from "./TextAnchor.module.scss";
 
-export const TextAnchor: React.FC<ITextAnchorProps> = ({
+export const TextAnchor: FC<ITextAnchorProps> = ({
 	className,
 	children,
 	path,

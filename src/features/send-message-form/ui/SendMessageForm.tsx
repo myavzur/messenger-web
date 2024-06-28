@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
 import { TextField } from "@/shared/ui";
 
-export const SendMessageForm: React.FC = () => {
+export const SendMessageForm: FC = () => {
 	return (
 		<div>
 			<form>
