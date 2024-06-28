@@ -1,0 +1,27 @@
+@import "@/app/styles/_mixins";
+
+.message {
+	--highlight-color: var(--color-accent-1000);
+	--highlight-color-bg: var(--color-accent-glassed-1000);
+
+	width: 100%;
+	padding: var(--space-1);
+	border-radius: var(--rounded-1);
+	border-left: 2px solid var(--highlight-color);
+	background-color: var(--highlight-color-bg);
+
+	.label {
+		margin-bottom: 3px;
+		color: var(--highlight-color);
+	}
+
+	.text {
+		color: var(--color-secondary-1000)
+	}
+
+	.label,
+	.text {
+		font-size: 14px;
+		@include line-clamp(1);
+	}
+}
