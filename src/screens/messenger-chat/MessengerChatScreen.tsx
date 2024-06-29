@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
@@ -17,7 +17,6 @@ import styles from "./MessengerChatScreen.module.scss";
 
 const MessengerChatScreen: FC = () => {
 	const params = useParams<{ polymorphicId: string }>();
-	const topMessageElementRef = useRef<HTMLDivElement>(null);
 
 	const { data: authData } = useAuthorizeQuery();
 
@@ -66,7 +65,6 @@ const MessengerChatScreen: FC = () => {
 							/>
 						))
 					)}
-					<div ref={topMessageElementRef}>Observe me UwU</div>
 				</div>
 
 				<div className={styles.form}>
