@@ -6,43 +6,37 @@ import { Icon } from "@/shared/ui";
 
 import styles from "./Message.module.scss";
 
-export const MessageSkeleton: FC<{ count?: number }> = ({ count = 1 }) => {
-	const mockArray = Array(count).fill(0);
+export const MessageSkeleton: FC<{ isOwn: boolean }> = ({ isOwn }) => {
+	return (
+		<div className={cn(styles.message, { [styles.message_own]: isOwn })}>
+			{!isOwn && (
+				<div className={styles.image}>
+					<Skeleton
+						circle={true}
+						width={40}
+						height={40}
+					/>
+				</div>
+			)}
 
-	return mockArray.map((_, idx) => {
-		const isOwn = idx % 2 === 0;
+			<div className={styles.content}>
+				<p className={cn(styles.row, styles.label)}>
+					<Skeleton width={150} />
+				</p>
 
-		return (
-			<div className={cn(styles.message, { [styles.message_own]: isOwn })}>
-				{!isOwn && (
-					<div className={styles.image}>
-						<Skeleton
-							circle={true}
-							width={40}
-							height={40}
-						/>
-					</div>
-				)}
+				<p className={cn(styles.row, styles.text)}>
+					<Skeleton width={150} />
+					<Skeleton width={120} />
+				</p>
 
-				<div className={styles.content}>
-					<p className={cn(styles.row, styles.label)}>
-						<Skeleton width={150} />
-					</p>
-
-					<p className={cn(styles.row, styles.text)}>
-						<Skeleton width={150} />
-						<Skeleton width={120} />
-					</p>
-
-					<div className={styles.appendix}>
-						<Icon
-							name="ui/appendix"
-							width="15"
-							height="15"
-						/>
-					</div>
+				<div className={styles.appendix}>
+					<Icon
+						name="ui/appendix"
+						width="15"
+						height="15"
+					/>
 				</div>
 			</div>
-		);
-	});
+		</div>
+	);
 };

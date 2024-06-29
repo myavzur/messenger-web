@@ -2,13 +2,14 @@ import { FC, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
+import { MessageRow } from "@/features/chat/ui/message-row";
+import { MessageRowSkeleton } from "@/features/chat/ui/message-row/MessageRowSkeleton";
 import { SendMessageForm } from "@/features/send-message-form/ui";
 
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
 import { useActiveChatStore } from "@/entities/chat/store/active-chat.store";
 import { ChatHeader, ChatHeaderSkeleton } from "@/entities/chat/ui/chat-header";
-import { Message, MessageSkeleton } from "@/entities/chat/ui/message";
 
 import { Header } from "@/shared/ui";
 
@@ -32,8 +33,7 @@ const MessengerChatScreen: FC = () => {
 		});
 
 	const isDataFetching = isEventsEmitting || !authData?.data;
-	const isChatFetching = isDataFetching || !chat;
-	const isMessagesFetching = isDataFetching && !messages.length;
+	const isChatAndHistoryFetching = isDataFetching || !chat;
 
 	useEffect(() => {
 		if (!params.polymorphicId) return;
@@ -43,7 +43,7 @@ const MessengerChatScreen: FC = () => {
 	return (
 		<div className={styles.page}>
 			<div className={styles.chat}>
-				{isChatFetching ? (
+				{isChatAndHistoryFetching ? (
 					<ChatHeaderSkeleton />
 				) : (
 					<ChatHeader
@@ -53,25 +53,18 @@ const MessengerChatScreen: FC = () => {
 				)}
 
 				<div className={styles.messages}>
-					{isMessagesFetching ? (
-						<MessageSkeleton count={15} />
+					{isChatAndHistoryFetching ? (
+						<MessageRowSkeleton count={15} />
 					) : (
-						messages.map((message) => {
-							const isOwn = message.user.id === authData?.data.id;
-							const isGroup = chat?.type === "group";
-
-							return (
-								<Message
-									key={message.id}
-									message={message}
-									isOwn={isOwn}
-									uiConfig={{
-										label: isGroup,
-										image: isGroup
-									}}
-								/>
-							);
-						})
+						messages.map((message) => (
+							<MessageRow
+								key={message.id}
+								message={message}
+								chatType={chat.type}
+								currentUserId={authData.data.id}
+								onContextMenu={(data) => console.log(data.message.text)}
+							/>
+						))
 					)}
 					<div ref={topMessageElementRef}>Observe me UwU</div>
 				</div>

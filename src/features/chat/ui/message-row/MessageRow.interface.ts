@@ -5,7 +5,7 @@ export interface IMessageRowProps {
 	chatType: ChatType;
 	message: IMessage;
 	currentUserId?: IUser["id"];
-	onContextMenu?: (payload: {
+	onContextMenu?: (data: {
 		message: IMessage;
 		mousePosition: {
 			x: number;

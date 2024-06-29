@@ -6,8 +6,11 @@ import styles from "./ChatCard.module.scss";
 export const ChatCardSkeleton: FC<{ count?: number }> = ({ count = 1 }) => {
 	const mockArray = Array(count).fill(0);
 
-	return mockArray.map(() => (
-		<div className={styles.card}>
+	return mockArray.map((_, idx) => (
+		<div
+			key={idx}
+			className={styles.card}
+		>
 			<div className={styles.image}>
 				<Skeleton
 					circle={true}

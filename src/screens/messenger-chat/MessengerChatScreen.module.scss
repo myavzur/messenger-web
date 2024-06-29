@@ -20,8 +20,11 @@
 
 	.messages,
 	.form {
-		padding: var(--space-4);
 		gap: var(--space-4);
+	}
+
+	.form {
+		padding: var(--space-4);
 	}
 }
 

@@ -1,0 +1,10 @@
+.row {
+	display: flex;
+	justify-content: flex-start;
+	transition: background-color var(--base-transition-timing) ease-in-out;
+	padding: 0 var(--space-4);
+
+	&_own {
+		justify-content: flex-end;
+	}
+}
