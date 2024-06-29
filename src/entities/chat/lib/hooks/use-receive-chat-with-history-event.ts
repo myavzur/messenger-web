@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { IUser } from "@/entities/user/interfaces";
 
@@ -19,9 +19,12 @@ export const useReceiveChatWithHistoryEvent = ({
 	onMessagesReceived
 }: IUseChatWithHistoryEventParams) => {
 	const { chatSocket } = useWebsocket();
+	const [isEventsEmitting, setIsEventsEmitting] = useState(false);
 
 	const receiveChatWithHistory = useCallback(
 		(polymorphicId: IChat["id"] | IUser["id"]) => {
+			setIsEventsEmitting(true);
+
 			chatSocket?.emit("get-chat", { polymorphicId }, (chat: IChat) => {
 				onChatReceived(chat);
 
@@ -34,6 +37,7 @@ export const useReceiveChatWithHistoryEvent = ({
 					},
 					(data) => {
 						onMessagesReceived(data.messages);
+						setIsEventsEmitting(false);
 					}
 				);
 			});
@@ -41,5 +45,5 @@ export const useReceiveChatWithHistoryEvent = ({
 		[chatSocket, onChatReceived, onMessagesReceived]
 	);
 
-	return { receiveChatWithHistory };
+	return { isEventsEmitting, receiveChatWithHistory };
 };

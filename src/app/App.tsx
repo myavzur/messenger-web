@@ -3,14 +3,18 @@ import "@/app/styles/main.scss";
 
 import { WebSocketProvider } from "@/shared/context/websocket-context";
 
+import { SkeletonThemeProvider } from "./providers/SkeletonThemeProvider";
+
 export const App = () => {
 	return (
 		<ReactQueryProvider>
-			<ThemesProvider>
-				<WebSocketProvider>
-					<RouterProvider />
-				</WebSocketProvider>
-			</ThemesProvider>
+			<WebSocketProvider>
+				<ThemesProvider>
+					<SkeletonThemeProvider>
+						<RouterProvider />
+					</SkeletonThemeProvider>
+				</ThemesProvider>
+			</WebSocketProvider>
 		</ReactQueryProvider>
 	);
 };

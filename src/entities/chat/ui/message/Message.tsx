@@ -44,7 +44,6 @@ export const Message: FC<IMessageProps> = memo(
 
 		return (
 			<div
-				data-message-id={message.id}
 				style={stylesInline}
 				className={cn(styles.message, { [styles.message_own]: isOwn })}
 				onContextMenu={handleContextMenu}

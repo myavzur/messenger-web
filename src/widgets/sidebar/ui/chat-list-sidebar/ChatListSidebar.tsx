@@ -1,12 +1,15 @@
-import { FC, useLayoutEffect } from "react";
+import { FC, useEffect } from "react";
 
 import { ChatCardAnchor } from "@/features/chat-card-anchor/ui";
 
 import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
 import { useReceiveChatListEvent } from "@/entities/chat/lib/hooks";
 import { useChatsStore } from "@/entities/chat/store";
+import { ChatCardSkeleton } from "@/entities/chat/ui/chat-card";
 
 import { Button, Header, Icon } from "@/shared/ui";
+
+import styles from "./ChatListSidebar.module.scss";
 
 export const ChatListSidebar: FC = () => {
 	const { data: authData } = useAuthorizeQuery();
@@ -16,11 +19,13 @@ export const ChatListSidebar: FC = () => {
 	const chats = useChatsStore((state) => state.chats);
 	const setChats = useChatsStore((state) => state.setChats);
 
-	const { receiveChatList } = useReceiveChatListEvent({
+	const { isEventEmitting, receiveChatList } = useReceiveChatListEvent({
 		onChatListReceived: setChats
 	});
 
-	useLayoutEffect(() => {
+	const isChatsFetching = (isEventEmitting && !chats.length) || !authData?.data;
+
+	useEffect(() => {
 		receiveChatList();
 	}, [receiveChatList]);
 
@@ -33,14 +38,19 @@ export const ChatListSidebar: FC = () => {
 				/>
 			</Header>
 
-			{authData?.data &&
-				chats.map((chat) => (
-					<ChatCardAnchor
-						key={chat.id}
-						chat={chat}
-						currentUserId={authData.data.id}
-					/>
-				))}
+			<div className={styles.content}>
+				{isChatsFetching ? (
+					<ChatCardSkeleton count={6} />
+				) : (
+					chats.map((chat) => (
+						<ChatCardAnchor
+							key={chat.id}
+							chat={chat}
+							currentUserId={authData.data.id}
+						/>
+					))
+				)}
+			</div>
 		</>
 	);
 };

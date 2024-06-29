@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { useWebsocket } from "@/shared/context/websocket-context/hooks";
 
@@ -12,8 +12,11 @@ export const useReceiveChatListEvent = ({
 	onChatListReceived
 }: IUseReceiveChatListEventParams) => {
 	const { chatSocket } = useWebsocket();
+	const [isEventEmitting, setIsEventEmitting] = useState(false);
 
 	const receiveChatList = useCallback(() => {
+		setIsEventEmitting(true);
+
 		chatSocket?.emit(
 			"get-chats",
 			{
@@ -21,10 +24,11 @@ export const useReceiveChatListEvent = ({
 				page: 1
 			},
 			(data) => {
+				setIsEventEmitting(false);
 				onChatListReceived(data.chats);
 			}
 		);
 	}, [chatSocket, onChatListReceived]);
 
-	return { receiveChatList };
+	return { isEventEmitting, receiveChatList };
 };
