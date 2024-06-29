@@ -11,7 +11,6 @@ import styles from "./Message.module.scss";
 export const Message: FC<IMessageProps> = memo(
 	({
 		message,
-		onContextMenu,
 		onEmbeddedMessageClick,
 		uiConfig = { label: true, image: true },
 		isOwn = false
@@ -27,17 +26,6 @@ export const Message: FC<IMessageProps> = memo(
 			"--highlight-color": `var(--highlight-color-${user.theme}, red)`
 		} as CSSProperties;
 
-		const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
-			e.preventDefault();
-			onContextMenu?.({
-				message,
-				mousePosition: {
-					x: e.clientX,
-					y: e.clientY
-				}
-			});
-		};
-
 		const handleEmbeddedMessageClick = (message: IMessage) => {
 			onEmbeddedMessageClick?.(message);
 		};
@@ -46,7 +34,6 @@ export const Message: FC<IMessageProps> = memo(
 			<div
 				style={stylesInline}
 				className={cn(styles.message, { [styles.message_own]: isOwn })}
-				onContextMenu={handleContextMenu}
 			>
 				{shouldRenderImage && (
 					<ImageCircle
