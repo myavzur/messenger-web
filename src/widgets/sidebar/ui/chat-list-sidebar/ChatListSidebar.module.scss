@@ -1,5 +1,9 @@
+@import "@/app/styles/_mixins";
+
 .content {
 	overflow-y: scroll;
 	max-height: 100%;
 	padding-bottom: 150px;
+
+	@include hide-scrollbar();
 }

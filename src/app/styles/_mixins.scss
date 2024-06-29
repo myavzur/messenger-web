@@ -11,12 +11,12 @@
     width: 3px;
   }
   &::-webkit-scrollbar-thumb {
-    @apply rounded-3xl;
+    border-radius: var(--rounded-3);
     border: 4px solid transparent;
-    background-color: var(--color-app-bg);
+    background: none;
   }
   &:hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-primary-400);
+    background-color: var(--color-primary-700);
   }
 }
 
