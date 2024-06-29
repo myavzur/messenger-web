@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 
-import { ChatCardAnchor } from "@/features/chat-card-anchor/ui";
+import { ChatCardAnchor } from "@/features/chat/ui/chat-card-anchor";
 
 import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
 import { useReceiveChatListEvent } from "@/entities/chat/lib/hooks";
