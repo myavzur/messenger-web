@@ -19,6 +19,13 @@ interface IChatServerEvents {
 	"pinned-message": (data: IMessage) => void;
 }
 
+export interface ISendMessagePayload {
+	polymorphicId: IChat["id"] | IUser["id"];
+	replyForId?: IMessage["id"];
+	fileIds?: IAttachment["id"][];
+	text: IMessage["text"];
+}
+
 interface IChatClientEvents {
 	"get-chats": (
 		payload: IPaginationBody,
@@ -57,12 +64,7 @@ interface IChatClientEvents {
 	) => void;
 
 	"send-message": (
-		payload: {
-			polymorphicId: IChat["id"] | IUser["id"];
-			replyForId?: IMessage["id"];
-			fileIds?: IAttachment["id"][];
-			text: IMessage["text"];
-		},
+		payload: ISendMessagePayload,
 		callback: (data: { message_id: IMessage["id"]; chat_id: IChat["id"] }) => void
 	) => void;
 

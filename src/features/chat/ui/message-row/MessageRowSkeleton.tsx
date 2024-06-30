@@ -12,7 +12,10 @@ export const MessageRowSkeleton: FC<{ count?: number }> = ({ count = 1 }) => {
 		const isOwn = idx % 2 === 0;
 
 		return (
-			<div className={cn(styles.row, { [styles.row_own]: isOwn })}>
+			<div
+				key={idx}
+				className={cn(styles.row, { [styles.row_own]: isOwn })}
+			>
 				<MessageSkeleton isOwn={isOwn} />
 			</div>
 		);

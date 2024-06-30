@@ -4,7 +4,10 @@ import { CSSTransition } from "react-transition-group";
 
 import { MessageRow } from "@/features/chat/ui/message-row";
 import { MessageRowSkeleton } from "@/features/chat/ui/message-row/MessageRowSkeleton";
-import { SendMessageForm } from "@/features/chat/ui/send-message-form";
+import {
+	SendMessageForm,
+	SendMessageFormSkeleton
+} from "@/features/chat/ui/send-message-form";
 
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
@@ -68,7 +71,11 @@ const MessengerChatScreen: FC = () => {
 				</div>
 
 				<div className={styles.form}>
-					<SendMessageForm />
+					{isChatAndHistoryFetching ? (
+						<SendMessageFormSkeleton />
+					) : (
+						<SendMessageForm chat={chat} />
+					)}
 				</div>
 			</div>
 
