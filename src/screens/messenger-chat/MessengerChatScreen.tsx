@@ -11,7 +11,7 @@ import {
 
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
-import { useActiveChatStore } from "@/entities/chat/store/active-chat.store";
+import { useActiveChatStore } from "@/entities/chat/stores/active-chat.store";
 import { ChatHeader, ChatHeaderSkeleton } from "@/entities/chat/ui/chat-header";
 
 import { Header } from "@/shared/ui";

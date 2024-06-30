@@ -4,7 +4,7 @@ import { ChatCardAnchor } from "@/features/chat/ui/chat-card-anchor";
 
 import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
 import { useReceiveChatListEvent } from "@/entities/chat/lib/hooks";
-import { useChatsStore } from "@/entities/chat/store";
+import { useChatsStore } from "@/entities/chat/stores";
 import { ChatCardSkeleton } from "@/entities/chat/ui/chat-card";
 
 import { Button, Header, Icon } from "@/shared/ui";

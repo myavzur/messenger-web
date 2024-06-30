@@ -1,4 +1,4 @@
-import { Theme } from "@/shared/store/preferences/preferences.interface";
+import { Theme } from "@/shared/stores/preferences/preferences.interface";
 
 export const getThemeFromSystem = (): Theme => {
 	/* It's possible that browser (like Edge) doesn't support matchMedia.
