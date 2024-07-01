@@ -5,7 +5,7 @@ import { ITextFieldProps } from "./TextField.interface";
 import styles from "./TextField.module.scss";
 
 export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
-	({ className, label, ...inputProps }, ref) => {
+	({ className, label, addonRightElement, ...inputProps }, ref) => {
 		return (
 			<div className={cn(styles.field, className)}>
 				<input
@@ -14,6 +14,11 @@ export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
 					ref={ref}
 					className={styles.input}
 				/>
+
+				{addonRightElement && (
+					<div className={styles.addonRight}>{addonRightElement}</div>
+				)}
+
 				{label && (
 					<label
 						className={styles.label}
