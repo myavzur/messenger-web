@@ -7,13 +7,15 @@
 	background-color: transparent;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
+	transition:
+		background-color var(--base-transition-timing),
+		border-color var(--base-transition-timing);
 
 	&:hover,
 	&:focus {
-		border-top-color: var(--color-primary-800);
-		border-bottom-color: var(--color-primary-800)	;
+		border-top-color: var(--color-primary-700);
+		border-bottom-color: var(--color-primary-700)	;
 	}
-
 
 	.image {
 		width: 40px;

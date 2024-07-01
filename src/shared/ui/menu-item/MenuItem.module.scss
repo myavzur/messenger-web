@@ -1,0 +1,38 @@
+.item {
+	.button {
+		padding: var(--space-1) var(--space-2);
+		margin: 0;
+		background: none;
+		outline: none;
+		cursor: pointer;
+		border: none;
+		border-radius: var(--rounded-1);
+		transition: background-color var(--base-transition-timing);
+
+		width: 100%;
+		display: flex;
+		align-items: center;
+		color: var(--color-secondary-1000);
+
+		.icon {
+			width: 20px;
+			height: 20px;
+		}
+
+		.text {
+			font-size: 14px;
+			padding-left: var(--space-2);
+		}
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-primary-800);
+		}
+	}
+
+	&_dangerous {
+		.button {
+			color: var(--color-error);
+		}
+	}
+}

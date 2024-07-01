@@ -36,6 +36,8 @@ export const ChatListSidebar: FC = () => {
 				<Button
 					leftIconElement={<Icon name="ui/menu-dots" />}
 					onClick={logout}
+					aria-label="Navigation"
+					title="Navigation"
 				/>
 			</Header>
 
