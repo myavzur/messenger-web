@@ -7,44 +7,44 @@ import { IActiveChatStore } from "./active-chat.interface";
 export const useActiveChatStore = create<IActiveChatStore>()(
 	devtools(
 		immer((set, get) => ({
-			chat: null,
-			messages: [],
-			pinnedMessage: null,
-			setChat: (chat) => {
+			activeChat: null,
+			activeChatMessages: [],
+			activeChatPinnedMessage: null,
+			setActiveChat: (chat) => {
 				set(
 					(state) => {
-						state.chat = chat;
+						state.activeChat = chat;
 					},
 					false,
 					"active-chat/set-chat"
 				);
 			},
-			setMessages: (messages) => {
+			setActiveChatMessages: (messages) => {
 				set(
 					(state) => {
-						state.messages = messages;
+						state.activeChatMessages = messages;
 					},
 					false,
 					"active-chat/set-messages"
 				);
 			},
-			addMessages: (messages) => {
+			addActiveChatMessage: (message) => {
 				set(
 					(state) => {
-						state.messages.push(...messages);
+						state.activeChatMessages.unshift(message);
 					},
 					false,
 					"active-chat/add-message"
 				);
 			},
-			removeMessages: (payload) => {
-				const newMessages = get().messages.filter(
+			removeActiveChatMessages: (payload) => {
+				const newMessages = get().activeChatMessages.filter(
 					(message) => !payload.messageIds.includes(message.id)
 				);
 
 				set(
 					(state) => {
-						state.messages = newMessages;
+						state.activeChatMessages = newMessages;
 					},
 					false,
 					"active-chat/remove-messages"

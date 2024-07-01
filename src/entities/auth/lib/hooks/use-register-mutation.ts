@@ -1,13 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { QueryKey, queryClient } from "@/shared/api/query-client";
-import { useWebsocket } from "@/shared/context/websocket-context/hooks/use-websocket";
 
 import authService from "../../services/auth.service";
 
 export const useRegisterMutation = () => {
-	const { openConnections } = useWebsocket();
-
 	return useMutation({
 		mutationKey: [QueryKey.REGISTER],
 		mutationFn: authService.register,
@@ -15,7 +12,6 @@ export const useRegisterMutation = () => {
 			queryClient.invalidateQueries({
 				queryKey: [QueryKey.AUTHORIZE]
 			});
-			openConnections();
 		}
 	});
 };

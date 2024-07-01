@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import { useWebsocket } from "@/shared/context/websocket-context/hooks";
+import authService from "@/entities/auth/services/auth.service";
 
 import { IChat } from "../../interfaces";
 
@@ -11,13 +11,12 @@ interface IUseReceiveChatListEventParams {
 export const useReceiveChatListEvent = ({
 	onChatListReceived
 }: IUseReceiveChatListEventParams) => {
-	const { chatSocket } = useWebsocket();
 	const [isEventEmitting, setIsEventEmitting] = useState(false);
 
 	const receiveChatList = useCallback(() => {
 		setIsEventEmitting(true);
 
-		chatSocket?.emit(
+		authService.chatSocket.emit(
 			"get-chats",
 			{
 				limit: 30,
@@ -28,7 +27,7 @@ export const useReceiveChatListEvent = ({
 				onChatListReceived(data.chats);
 			}
 		);
-	}, [chatSocket, onChatListReceived]);
+	}, [onChatListReceived]);
 
 	return { isEventEmitting, receiveChatList };
 };

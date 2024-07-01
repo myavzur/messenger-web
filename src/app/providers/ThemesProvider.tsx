@@ -1,8 +1,7 @@
 import { FC, PropsWithChildren, useCallback, useLayoutEffect } from "react";
 
 import { getThemeFromSystem } from "@/shared/lib/helpers";
-import { usePreferencesStore } from "@/shared/stores/preferences";
-import { Theme } from "@/shared/stores/preferences/preferences.interface";
+import { Theme, usePreferencesStore } from "@/shared/stores/preferences";
 
 export const ThemesProvider: FC<PropsWithChildren> = ({ children }) => {
 	const theme = usePreferencesStore((state) => state.theme);

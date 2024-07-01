@@ -11,7 +11,7 @@ import {
 
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
 import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
-import { useActiveChatStore } from "@/entities/chat/stores/active-chat.store";
+import { useActiveChatStore } from "@/entities/chat/stores/active-chat";
 import { ChatHeader, ChatHeaderSkeleton } from "@/entities/chat/ui/chat-header";
 
 import { Header } from "@/shared/ui";
@@ -23,19 +23,21 @@ const MessengerChatScreen: FC = () => {
 
 	const { data: authData } = useAuthorizeQuery();
 
-	const chat = useActiveChatStore((state) => state.chat);
-	const messages = useActiveChatStore((state) => state.messages);
-	const setChat = useActiveChatStore((state) => state.setChat);
-	const setMessages = useActiveChatStore((state) => state.setMessages);
+	const activeChat = useActiveChatStore((state) => state.activeChat);
+	const activeChatMessages = useActiveChatStore((state) => state.activeChatMessages);
+	const setActiveChat = useActiveChatStore((state) => state.setActiveChat);
+	const setActiveChatMessages = useActiveChatStore(
+		(state) => state.setActiveChatMessages
+	);
 
 	const { isEventsEmitting, receiveChatWithHistory } =
 		useReceiveChatWithHistoryEvent({
-			onChatReceived: setChat,
-			onMessagesReceived: setMessages
+			onChatReceived: setActiveChat,
+			onMessagesReceived: setActiveChatMessages
 		});
 
 	const isDataFetching = isEventsEmitting || !authData?.data;
-	const isChatAndHistoryFetching = isDataFetching || !chat;
+	const isActiveChatAndMessagesFetching = isDataFetching || !activeChat;
 
 	useEffect(() => {
 		if (!params.polymorphicId) return;
@@ -45,24 +47,24 @@ const MessengerChatScreen: FC = () => {
 	return (
 		<div className={styles.page}>
 			<div className={styles.chat}>
-				{isChatAndHistoryFetching ? (
+				{isActiveChatAndMessagesFetching ? (
 					<ChatHeaderSkeleton />
 				) : (
 					<ChatHeader
-						chat={chat}
+						chat={activeChat}
 						currentUserId={authData.data.id}
 					/>
 				)}
 
 				<div className={styles.messages}>
-					{isChatAndHistoryFetching ? (
+					{isActiveChatAndMessagesFetching ? (
 						<MessageRowSkeleton count={15} />
 					) : (
-						messages.map((message) => (
+						activeChatMessages.map((message) => (
 							<MessageRow
 								key={message.id}
 								message={message}
-								chatType={chat.type}
+								chatType={activeChat.type}
 								currentUserId={authData.data.id}
 								onContextMenu={(data) => console.log(data.message.text)}
 							/>
@@ -71,10 +73,10 @@ const MessengerChatScreen: FC = () => {
 				</div>
 
 				<div className={styles.form}>
-					{isChatAndHistoryFetching ? (
+					{isActiveChatAndMessagesFetching ? (
 						<SendMessageFormSkeleton />
 					) : (
-						<SendMessageForm chat={chat} />
+						<SendMessageForm chat={activeChat} />
 					)}
 				</div>
 			</div>

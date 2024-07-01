@@ -4,7 +4,7 @@ import { ChatCardAnchor } from "@/features/chat/ui/chat-card-anchor";
 
 import { useAuthorizeQuery, useLogout } from "@/entities/auth/lib/hooks";
 import { useReceiveChatListEvent } from "@/entities/chat/lib/hooks";
-import { useChatsStore } from "@/entities/chat/stores";
+import { useChatListStore } from "@/entities/chat/stores/chat-list";
 import { ChatCardSkeleton } from "@/entities/chat/ui/chat-card";
 
 import { Button, Header, Icon } from "@/shared/ui";
@@ -16,14 +16,15 @@ export const ChatListSidebar: FC = () => {
 
 	const logout = useLogout();
 
-	const chats = useChatsStore((state) => state.chats);
-	const setChats = useChatsStore((state) => state.setChats);
+	const chatList = useChatListStore((state) => state.chatList);
+	const setChatList = useChatListStore((state) => state.setChatList);
 
 	const { isEventEmitting, receiveChatList } = useReceiveChatListEvent({
-		onChatListReceived: setChats
+		onChatListReceived: setChatList
 	});
 
-	const isChatsFetching = (isEventEmitting && !chats.length) || !authData?.data;
+	const isChatListFetching =
+		(isEventEmitting && !chatList.length) || !authData?.data;
 
 	useEffect(() => {
 		receiveChatList();
@@ -39,10 +40,10 @@ export const ChatListSidebar: FC = () => {
 			</Header>
 
 			<div className={styles.content}>
-				{isChatsFetching ? (
+				{isChatListFetching ? (
 					<ChatCardSkeleton count={6} />
 				) : (
-					chats.map((chat) => (
+					chatList.map((chat) => (
 						<ChatCardAnchor
 							key={chat.id}
 							chat={chat}

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
-import { useWebsocket } from "@/shared/context/websocket-context/hooks";
-import { ISendMessagePayload } from "@/shared/context/websocket-context/interfaces";
+import { ISendMessagePayload } from "@/entities/auth/interfaces/socket-io";
+import authService from "@/entities/auth/services/auth.service";
 
 interface IUseSendMessageEventParams {
 	onMessageSent: () => void;
@@ -10,19 +10,18 @@ interface IUseSendMessageEventParams {
 export const useSendMessageEvent = ({
 	onMessageSent
 }: IUseSendMessageEventParams) => {
-	const { chatSocket } = useWebsocket();
 	const [isEventEmitting, setIsEventEmitting] = useState(false);
 
 	const sendMessage = useCallback(
 		(payload: ISendMessagePayload) => {
 			setIsEventEmitting(true);
 
-			chatSocket?.emit("send-message", payload, () => {
+			authService.chatSocket.emit("send-message", payload, () => {
 				setIsEventEmitting(false);
 				onMessageSent();
 			});
 		},
-		[chatSocket, setIsEventEmitting, onMessageSent]
+		[onMessageSent]
 	);
 
 	return { isEventEmitting, sendMessage };
