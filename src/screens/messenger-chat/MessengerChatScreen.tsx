@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import { useShallow } from "zustand/react/shallow";
 
 import { MessageRow } from "@/features/chat/ui/message-row";
 import { MessageRowSkeleton } from "@/features/chat/ui/message-row/MessageRowSkeleton";
@@ -23,12 +24,15 @@ const MessengerChatScreen: FC = () => {
 
 	const { data: authData } = useAuthorizeQuery();
 
-	const activeChat = useActiveChatStore((state) => state.activeChat);
-	const activeChatMessages = useActiveChatStore((state) => state.activeChatMessages);
-	const setActiveChat = useActiveChatStore((state) => state.setActiveChat);
-	const setActiveChatMessages = useActiveChatStore(
-		(state) => state.setActiveChatMessages
-	);
+	const { activeChat, setActiveChat, activeChatMessages, setActiveChatMessages } =
+		useActiveChatStore(
+			useShallow((state) => ({
+				activeChat: state.activeChat,
+				setActiveChat: state.setActiveChat,
+				activeChatMessages: state.activeChatMessages,
+				setActiveChatMessages: state.setActiveChatMessages
+			}))
+		);
 
 	const { isEventsEmitting, receiveChatWithHistory } =
 		useReceiveChatWithHistoryEvent({
