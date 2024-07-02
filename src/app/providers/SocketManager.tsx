@@ -4,7 +4,7 @@ import authService from "@/entities/auth/services/auth.service";
 import { useActiveChatStore } from "@/entities/chat/stores/active-chat";
 import { useChatListStore } from "@/entities/chat/stores/chat-list";
 
-import { useLatest } from "@/shared/lib/hooks";
+import { useLatestValue } from "@/shared/lib/hooks";
 
 export const SocketManager = () => {
 	const activeChat = useActiveChatStore((state) => state.activeChat);
@@ -17,7 +17,7 @@ export const SocketManager = () => {
 		(state) => state.updateChatListRoughly
 	);
 
-	const handleNewMessageEvent = useLatest((data: any) => {
+	const handleNewMessageEvent = useLatestValue((data: any) => {
 		console.debug("[Chat Event]: New message event", data);
 
 		// Добавляем сообщения в активный чат если он установлен.
