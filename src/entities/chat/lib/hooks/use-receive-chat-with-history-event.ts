@@ -17,11 +17,11 @@ export const useReceiveChatWithHistoryEvent = ({
 	onChatReceived,
 	onMessagesReceived
 }: IUseChatWithHistoryEventParams) => {
-	const [isEventsEmitting, setIsEventsEmitting] = useState(false);
+	const [isChatFetching, setIsChatFetching] = useState(false);
 
 	const receiveChatWithHistory = useCallback(
 		(polymorphicId: IChat["id"] | IUser["id"]) => {
-			setIsEventsEmitting(true);
+			setIsChatFetching(true);
 
 			authService.chatSocket.emit("get-chat", { polymorphicId }, (chat: IChat) => {
 				onChatReceived(chat);
@@ -35,7 +35,7 @@ export const useReceiveChatWithHistoryEvent = ({
 					},
 					(data) => {
 						onMessagesReceived(data.messages);
-						setIsEventsEmitting(false);
+						setIsChatFetching(false);
 					}
 				);
 			});
@@ -43,5 +43,5 @@ export const useReceiveChatWithHistoryEvent = ({
 		[onChatReceived, onMessagesReceived]
 	);
 
-	return { isEventsEmitting, receiveChatWithHistory };
+	return { isChatFetching, receiveChatWithHistory };
 };

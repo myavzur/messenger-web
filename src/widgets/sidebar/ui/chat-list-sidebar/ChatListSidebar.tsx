@@ -19,12 +19,11 @@ export const ChatListSidebar: FC = () => {
 	const chatList = useChatListStore((state) => state.chatList);
 	const setChatList = useChatListStore((state) => state.setChatList);
 
-	const { isEventEmitting, receiveChatList } = useReceiveChatListEvent({
+	const { isChatListFetching, receiveChatList } = useReceiveChatListEvent({
 		onChatListReceived: setChatList
 	});
 
-	const isChatListFetching =
-		(isEventEmitting && !chatList.length) || !authData?.data;
+	const isChatListReady = !isChatListFetching && chatList.length && authData?.data;
 
 	useEffect(() => {
 		receiveChatList();
@@ -42,9 +41,7 @@ export const ChatListSidebar: FC = () => {
 			</Header>
 
 			<div className={styles.content}>
-				{isChatListFetching ? (
-					<ChatCardSkeleton count={6} />
-				) : (
+				{isChatListReady ? (
 					chatList.map((chat) => (
 						<ChatCardAnchor
 							key={chat.id}
@@ -52,6 +49,8 @@ export const ChatListSidebar: FC = () => {
 							currentUserId={authData.data.id}
 						/>
 					))
+				) : (
+					<ChatCardSkeleton count={6} />
 				)}
 			</div>
 		</>

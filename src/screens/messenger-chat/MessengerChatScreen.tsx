@@ -1,7 +1,8 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 import { useShallow } from "zustand/react/shallow";
+
+import { ChatInfoSidebar } from "@/widgets/sidebar/ui/chat-info-sidebar";
 
 import { MessageRow } from "@/features/chat/ui/message-row";
 import { MessageRowSkeleton } from "@/features/chat/ui/message-row/MessageRowSkeleton";
@@ -9,20 +10,31 @@ import {
 	SendMessageForm,
 	SendMessageFormSkeleton
 } from "@/features/chat/ui/send-message-form";
+import { useContextMenu } from "@/features/context-menu/lib/hooks";
+import { ContextMenuPainter } from "@/features/context-menu/ui";
+import { MessageMenu } from "@/features/menu/ui/message-menu";
 
 import { useAuthorizeQuery } from "@/entities/auth/lib/hooks";
+import { IMessage } from "@/entities/chat/interfaces";
 import { useReceiveChatWithHistoryEvent } from "@/entities/chat/lib/hooks";
 import { useActiveChatStore } from "@/entities/chat/stores/active-chat";
 import { ChatHeader, ChatHeaderSkeleton } from "@/entities/chat/ui/chat-header";
-
-import { Header } from "@/shared/ui";
 
 import styles from "./MessengerChatScreen.module.scss";
 
 const MessengerChatScreen: FC = () => {
 	const params = useParams<{ polymorphicId: string }>();
-
 	const { data: authData } = useAuthorizeQuery();
+	const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+	const messagesContainerElementRef = useRef<HTMLDivElement>(null);
+	const {
+		contextMenuData,
+		isContextMenuOpen,
+		mousePosition,
+		openContextMenu,
+		closeContextMenu
+	} = useContextMenu<IMessage>();
 
 	const { activeChat, setActiveChat, activeChatMessages, setActiveChatMessages } =
 		useActiveChatStore(
@@ -34,75 +46,74 @@ const MessengerChatScreen: FC = () => {
 			}))
 		);
 
-	const { isEventsEmitting, receiveChatWithHistory } =
-		useReceiveChatWithHistoryEvent({
-			onChatReceived: setActiveChat,
-			onMessagesReceived: setActiveChatMessages
-		});
-
-	const isDataFetching = isEventsEmitting || !authData?.data;
-	const isActiveChatAndMessagesFetching = isDataFetching || !activeChat;
+	const { isChatFetching, receiveChatWithHistory } = useReceiveChatWithHistoryEvent({
+		onChatReceived: setActiveChat,
+		onMessagesReceived: setActiveChatMessages
+	});
 
 	useEffect(() => {
 		if (!params.polymorphicId) return;
 		receiveChatWithHistory(params.polymorphicId);
 	}, [params, receiveChatWithHistory]);
 
+	const isDataFetching = isChatFetching || !authData?.data;
+	const isActiveChatAndMessagesReady = !isDataFetching && activeChat;
+
 	return (
 		<div className={styles.page}>
 			<div className={styles.chat}>
-				{isActiveChatAndMessagesFetching ? (
-					<ChatHeaderSkeleton />
-				) : (
+				{isActiveChatAndMessagesReady ? (
 					<ChatHeader
 						chat={activeChat}
 						currentUserId={authData.data.id}
+						onClick={() => setIsInfoOpen(true)}
 					/>
+				) : (
+					<ChatHeaderSkeleton />
 				)}
 
-				<div className={styles.messages}>
-					{isActiveChatAndMessagesFetching ? (
-						<MessageRowSkeleton count={15} />
-					) : (
+				<div
+					className={styles.messages}
+					ref={messagesContainerElementRef}
+				>
+					{isActiveChatAndMessagesReady ? (
 						activeChatMessages.map((message) => (
 							<MessageRow
 								key={message.id}
 								message={message}
 								chatType={activeChat.type}
 								currentUserId={authData.data.id}
-								onContextMenu={(data) => console.log(data.message.text)}
+								onContextMenu={openContextMenu}
 							/>
 						))
+					) : (
+						<MessageRowSkeleton count={15} />
+					)}
+
+					{isContextMenuOpen && (
+						<ContextMenuPainter
+							containerElementRef={messagesContainerElementRef}
+							onClose={closeContextMenu}
+							mousePosition={mousePosition!}
+						>
+							<MessageMenu message={contextMenuData!} />
+						</ContextMenuPainter>
 					)}
 				</div>
 
 				<div className={styles.form}>
-					{isActiveChatAndMessagesFetching ? (
-						<SendMessageFormSkeleton />
-					) : (
+					{isActiveChatAndMessagesReady ? (
 						<SendMessageForm chat={activeChat} />
+					) : (
+						<SendMessageFormSkeleton />
 					)}
 				</div>
 			</div>
 
-			<CSSTransition
-				in={false}
-				timeout={300}
-				classNames={{
-					enter: styles.infoEnter,
-					enterActive: styles.infoEnter_active,
-					enterDone: styles.infoEnter_done,
-					exit: styles.infoExit,
-					exitActive: styles.infoExit_active,
-					exitDone: styles.infoExit_done
-				}}
-				mountOnEnter={true}
-				unmountOnExit={true}
-			>
-				<div className={styles.info}>
-					<Header>Информация!</Header>
-				</div>
-			</CSSTransition>
+			<ChatInfoSidebar
+				isOpen={isInfoOpen}
+				onClose={() => setIsInfoOpen(false)}
+			/>
 		</div>
 	);
 };

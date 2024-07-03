@@ -13,12 +13,12 @@ export const SendMessageForm: FC<ISendMessageFormProps> = memo(({ chat }) => {
 		mode: "onChange"
 	});
 
-	const { isEventEmitting, sendMessage } = useSendMessageEvent({
+	const { isMessageSending, sendMessage } = useSendMessageEvent({
 		onMessageSent: reset
 	});
 
 	const handleSendMessage: SubmitHandler<{ text: string }> = (data) => {
-		if (!formState.isValid || isEventEmitting) return;
+		if (!formState.isValid || isMessageSending) return;
 
 		sendMessage({
 			polymorphicId: chat.id,
@@ -42,7 +42,7 @@ export const SendMessageForm: FC<ISendMessageFormProps> = memo(({ chat }) => {
 						required: false
 					})}
 					placeholder="You are beautiful ✨"
-					disabled={isEventEmitting}
+					disabled={isMessageSending}
 				/>
 			</form>
 		</div>

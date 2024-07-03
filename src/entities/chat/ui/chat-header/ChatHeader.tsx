@@ -8,19 +8,23 @@ import { serializeChat } from "../../lib/helpers";
 import { IChatHeaderProps } from "./ChatHeader.interface";
 import styles from "./ChatHeader.module.scss";
 
-export const ChatHeader: FC<IChatHeaderProps> = ({ chat, currentUserId }) => {
-	if (!chat) {
-		throw new Error("FUCK YOU BITCH!");
-	}
-
+export const ChatHeader: FC<IChatHeaderProps> = ({
+	chat,
+	currentUserId,
+	onClick
+}) => {
 	const serializedChat = serializeChat({ chat, currentUserId });
 	const informationText =
 		serializedChat.type === ChatType.GROUP
 			? `${serializedChat.participants_count} members`
 			: formatLastSeenAtDate(serializedChat.user_last_seen_at!);
 
+	const handleClick = () => {
+		onClick?.(chat);
+	};
+
 	return (
-		<Header>
+		<Header onClick={handleClick}>
 			<div className={styles.content}>
 				<ImageCircle
 					className={styles.image}

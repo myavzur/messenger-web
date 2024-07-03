@@ -11,10 +11,10 @@ interface IUseReceiveChatListEventParams {
 export const useReceiveChatListEvent = ({
 	onChatListReceived
 }: IUseReceiveChatListEventParams) => {
-	const [isEventEmitting, setIsEventEmitting] = useState(false);
+	const [isChatListFetching, setIsChatListFetching] = useState(false);
 
 	const receiveChatList = useCallback(() => {
-		setIsEventEmitting(true);
+		setIsChatListFetching(true);
 
 		authService.chatSocket.emit(
 			"get-chats",
@@ -23,11 +23,11 @@ export const useReceiveChatListEvent = ({
 				page: 1
 			},
 			(data) => {
-				setIsEventEmitting(false);
+				setIsChatListFetching(false);
 				onChatListReceived(data.chats);
 			}
 		);
 	}, [onChatListReceived]);
 
-	return { isEventEmitting, receiveChatList };
+	return { isChatListFetching, receiveChatList };
 };

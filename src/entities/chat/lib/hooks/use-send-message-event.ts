@@ -10,19 +10,19 @@ interface IUseSendMessageEventParams {
 export const useSendMessageEvent = ({
 	onMessageSent
 }: IUseSendMessageEventParams) => {
-	const [isEventEmitting, setIsEventEmitting] = useState(false);
+	const [isMessageSending, setIsMessageSending] = useState(false);
 
 	const sendMessage = useCallback(
 		(payload: ISendMessagePayload) => {
-			setIsEventEmitting(true);
+			setIsMessageSending(true);
 
 			authService.chatSocket.emit("send-message", payload, () => {
-				setIsEventEmitting(false);
+				setIsMessageSending(false);
 				onMessageSent();
 			});
 		},
 		[onMessageSent]
 	);
 
-	return { isEventEmitting, sendMessage };
+	return { isMessageSending, sendMessage };
 };
