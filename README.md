@@ -1,10 +1,14 @@
 # Roadmap
+### Components
+
+- [ ] **ASAP** Redesign approach for `Context Menus`.
+
 ### Accessability
 [Статья Дока: ARIA-атрибуты](https://doka.guide/a11y/aria-attrs/)
 
 [Статья Дока: Как описывать картинки](https://doka.guide/a11y/how-to-describe-pictures/)
 
-- [ ] Use two languages `ru`, `en`  with `i11n`
+- [ ] Use two languages `ru`, `en`  with `i11n`.
 - [ ] Describe `images` and `SVGs` if needed.
 - [ ] Provide necessary `aria` attributes.
 - [ ] Provide necessary `aria` roles.
