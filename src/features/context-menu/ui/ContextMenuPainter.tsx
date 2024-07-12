@@ -23,6 +23,11 @@ export const ContextMenuPainter: FC<IContextMenuPainterProps> = ({
 
 		if (!menuElement || !containerElement) return;
 
+		menuElement.style.setProperty("position", "absolute");
+		containerElement.style.setProperty("position", "relative");
+
+		if (!mousePosition) return;
+
 		const menuRect = menuElement.getBoundingClientRect();
 		const containerRect = containerElement.getBoundingClientRect();
 
@@ -47,26 +52,21 @@ export const ContextMenuPainter: FC<IContextMenuPainterProps> = ({
 			transform += "translateY(-100%)";
 		}
 
-		menuElement.style.setProperty("position", "absolute");
 		menuElement.style.setProperty("left", `${mouseX}px`);
 		menuElement.style.setProperty("top", `${mouseY + containerElement.scrollTop}px`);
 		menuElement.style.setProperty("transform", transform);
 
-		containerElement.style.setProperty("position", "relative");
-		containerElement.style.setProperty("overflow", "hidden");
-
 		return () => {
 			containerElement.style.removeProperty("position");
-			containerElement.style.removeProperty("overflow");
 		};
 	}, [containerElementRef, mousePosition]);
 
-	return mousePosition ? (
+	return (
 		<div
 			ref={menuElementRef}
 			className={styles.painter}
 		>
 			{children}
 		</div>
-	) : null;
+	);
 };

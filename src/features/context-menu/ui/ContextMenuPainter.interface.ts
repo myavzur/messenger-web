@@ -6,5 +6,6 @@ export interface IContextMenuPainterProps {
 	containerElementRef: RefObject<HTMLElement>;
 	children: ReactNode;
 	onClose: () => void;
-	mousePosition: IMousePosition;
+	/** If not present - simply render children with position absolute */
+	mousePosition?: IMousePosition;
 }

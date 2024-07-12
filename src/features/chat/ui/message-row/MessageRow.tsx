@@ -25,13 +25,13 @@ export const MessageRow: FC<IMessageRowProps> = memo(
 				rowElementRef.current?.style.removeProperty("background-color");
 			}, 2000);
 
-			onContextMenu({
-				data: message,
-				mousePosition: {
+			onContextMenu(
+				{
 					clientX: e.clientX,
 					clientY: e.clientY
-				}
-			});
+				},
+				message
+			);
 		};
 
 		const isOwn = message.user.id === currentUserId;

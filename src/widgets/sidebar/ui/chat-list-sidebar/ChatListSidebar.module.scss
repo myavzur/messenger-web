@@ -1,5 +1,14 @@
 @import "@/app/styles/_mixins";
 
+.navigation {
+	position: relative;
+
+	.menu {
+		position: absolute;
+		top: calc(100% + var(--space-2));
+	}
+}
+
 .content {
 	overflow-y: scroll;
 	max-height: 100%;

@@ -6,7 +6,7 @@ export interface IUseContextMenuResult<T> {
 	isContextMenuOpen: boolean;
 	contextMenuData: T | null;
 	mousePosition: IMousePosition | null;
-	openContextMenu: (data: { data: T; mousePosition: IMousePosition }) => void;
+	openContextMenu: (mousePosition: IMousePosition, newContextMenuData?: T) => void;
 	closeContextMenu: () => void;
 }
 
@@ -16,19 +16,25 @@ export const useContextMenu = <T>(): IUseContextMenuResult<T> => {
 	const [mousePosition, setMousePosition] = useState<IMousePosition | null>(null);
 
 	const openContextMenu = useCallback(
-		(data: { data: T; mousePosition: IMousePosition }) => {
-			setContextMenuData(data.data);
-			setMousePosition(data.mousePosition);
+		(mousePosition: IMousePosition, newContextMenuData?: T) => {
+			if (newContextMenuData) {
+				setContextMenuData(newContextMenuData);
+			}
+
+			setMousePosition(mousePosition);
 			setIsContextMenuOpen(true);
 		},
 		[]
 	);
 
 	const closeContextMenu = useCallback(() => {
-		setContextMenuData(null);
+		if (contextMenuData) {
+			setContextMenuData(null);
+		}
+
 		setMousePosition(null);
 		setIsContextMenuOpen(false);
-	}, []);
+	}, [contextMenuData]);
 
 	return {
 		isContextMenuOpen,
