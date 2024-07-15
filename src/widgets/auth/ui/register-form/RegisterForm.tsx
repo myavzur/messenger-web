@@ -1,7 +1,10 @@
 import { FC } from "react";
 import { CSSTransition } from "react-transition-group";
 
-import { IRegisterCredentialsBody } from "@/entities/auth/interfaces";
+import {
+	IRegisterCredentialsBody,
+	IRegisterPersonalizeBody
+} from "@/entities/auth/interfaces";
 import { AuthFormLayout } from "@/entities/auth/ui/auth-form-layout";
 import { CombinedTransferText } from "@/entities/auth/ui/combined-transfer-text";
 import { Socials } from "@/entities/auth/ui/socials";
@@ -9,12 +12,12 @@ import { Socials } from "@/entities/auth/ui/socials";
 import { Divider } from "@/shared/ui";
 
 import styles from "../../styles/Form.module.scss";
-import { CredentialsForm } from "../credentials-form";
+import { PersonalizeForm } from "../personalize-form";
 import { IRegisterFormProps } from "./RegisterForm.interface";
 
 export const RegisterForm: FC<IRegisterFormProps> = () => {
 	const handleNewData = (
-		data: IRegisterCredentialsBody | IRegisterCredentialsBody
+		data: IRegisterCredentialsBody | IRegisterPersonalizeBody
 	) => {
 		console.log(data);
 	};
@@ -46,7 +49,10 @@ export const RegisterForm: FC<IRegisterFormProps> = () => {
 				</CSSTransition>
 			}
 		>
-			<CredentialsForm onSubmit={handleNewData} />
+			<PersonalizeForm
+				onSubmit={handleNewData}
+				onBack={() => console.log("1")}
+			/>
 		</AuthFormLayout>
 	);
 };
