@@ -2,52 +2,67 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { IActiveChatStore } from "./active-chat.interface";
+import { IActiveChatStore, IState } from "./active-chat.interface";
+
+const initialState: IState = {
+	chat: null,
+	messages: [],
+	replyFor: null
+};
 
 export const useActiveChatStore = create<IActiveChatStore>()(
 	devtools(
 		immer((set, get) => ({
-			activeChat: null,
-			activeChatMessages: [],
-			activeChatPinnedMessage: null,
-			setActiveChat: (chat) => {
+			...initialState,
+			setChat: (chat) => {
 				set(
 					(state) => {
-						state.activeChat = chat;
+						state.chat = chat;
+						state.messages = initialState["messages"];
+						state.replyFor = initialState["replyFor"];
 					},
 					false,
 					"active-chat/set-chat"
 				);
 			},
-			setActiveChatMessages: (messages) => {
+			setMessages: (messages) => {
 				set(
 					(state) => {
-						state.activeChatMessages = messages;
+						state.messages = messages;
 					},
 					false,
 					"active-chat/set-messages"
 				);
 			},
-			addActiveChatMessage: (message) => {
+			addMessage: (message) => {
 				set(
 					(state) => {
-						state.activeChatMessages.unshift(message);
+						state.messages.unshift(message);
 					},
 					false,
 					"active-chat/add-message"
 				);
 			},
-			removeActiveChatMessages: (payload) => {
-				const newMessages = get().activeChatMessages.filter(
+			removeMessages: (payload) => {
+				const newMessages = get().messages.filter(
 					(message) => !payload.messageIds.includes(message.id)
 				);
 
 				set(
 					(state) => {
-						state.activeChatMessages = newMessages;
+						state.messages = newMessages;
 					},
 					false,
 					"active-chat/remove-messages"
+				);
+			},
+			setReplyFor: (message) => {
+				set(
+					(state) => {
+						state.replyFor = message;
+					},
+					false,
+					"active-chat/set-reply-for"
 				);
 			}
 		})),

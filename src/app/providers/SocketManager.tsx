@@ -4,26 +4,24 @@ import authService from "@/entities/auth/services/auth.service";
 import { useActiveChatStore } from "@/entities/chat/stores/active-chat";
 import { useChatListStore } from "@/entities/chat/stores/chat-list";
 
-import { useLatestValue } from "@/shared/lib/hooks";
+import { useEvent } from "@/shared/lib/hooks";
 
 export const SocketManager = () => {
-	const activeChat = useActiveChatStore((state) => state.activeChat);
-	const addActiveChatMessage = useActiveChatStore(
-		(state) => state.addActiveChatMessage
-	);
+	const chat = useActiveChatStore((state) => state.chat);
+	const addMessage = useActiveChatStore((state) => state.addMessage);
 
 	const chatList = useChatListStore((state) => state.chatList);
 	const updateChatListRoughly = useChatListStore(
 		(state) => state.updateChatListRoughly
 	);
 
-	const handleNewMessageEvent = useLatestValue((data: any) => {
-		console.debug("[Chat Event]: New message event", data);
+	const handleNewMessageEvent = useEvent((data: any) => {
+		console.debug("[Chat Event]: new-message", data);
 
 		// Добавляем сообщения в активный чат если он установлен.
-		const isSameChatMessage = data.chat_id === activeChat?.id;
+		const isSameChatMessage = data.chat_id === chat?.id;
 		if (isSameChatMessage) {
-			addActiveChatMessage(data.message);
+			addMessage(data.message);
 		}
 
 		// Если есть такой чат в памяти - обновляем последнее сообщение.
@@ -45,7 +43,7 @@ export const SocketManager = () => {
 		authService.chatSocket.on("disconnect", () => {
 			console.log("Socket disconnected [Chat].");
 		});
-		authService.chatSocket.on("new-message", handleNewMessageEvent.current);
+		authService.chatSocket.on("new-message", handleNewMessageEvent);
 
 		authService.presenceSocket.on("connect", () => {
 			console.log("Socket connected [Presence].");

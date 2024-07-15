@@ -1,5 +1,7 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
 
+/** Read more about this hook on:
+ * https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md */
 export const useEvent = <CallbackType extends (...args: any[]) => any>(
 	callback: CallbackType
 ) => {

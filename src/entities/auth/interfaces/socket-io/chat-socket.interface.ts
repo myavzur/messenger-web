@@ -68,10 +68,6 @@ interface IChatClientEvents {
 		callback: (data: { message_id: IMessage["id"]; chat_id: IChat["id"] }) => void
 	) => void;
 
-	"change-message": () => void;
-
-	"pin-message": (payload: { messageId: IMessage["id"] }) => void;
-
 	"delete-messages": (payload: {
 		chatId: IChat["id"];
 		messageIds: IMessage["id"][];

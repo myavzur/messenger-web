@@ -36,19 +36,18 @@ const MessengerChatScreen: FC = () => {
 		closeContextMenu
 	} = useContextMenu<IMessage>();
 
-	const { activeChat, setActiveChat, activeChatMessages, setActiveChatMessages } =
-		useActiveChatStore(
-			useShallow((state) => ({
-				activeChat: state.activeChat,
-				setActiveChat: state.setActiveChat,
-				activeChatMessages: state.activeChatMessages,
-				setActiveChatMessages: state.setActiveChatMessages
-			}))
-		);
+	const { chat, setChat, messages, setMessages } = useActiveChatStore(
+		useShallow((state) => ({
+			chat: state.chat,
+			setChat: state.setChat,
+			messages: state.messages,
+			setMessages: state.setMessages
+		}))
+	);
 
 	const { isChatFetching, receiveChatWithHistory } = useReceiveChatWithHistoryEvent({
-		onChatReceived: setActiveChat,
-		onMessagesReceived: setActiveChatMessages
+		onChatReceived: setChat,
+		onMessagesReceived: setMessages
 	});
 
 	useEffect(() => {
@@ -57,14 +56,14 @@ const MessengerChatScreen: FC = () => {
 	}, [params, receiveChatWithHistory]);
 
 	const isDataFetching = isChatFetching || !authData?.data;
-	const isActiveChatAndMessagesReady = !isDataFetching && activeChat;
+	const isActiveChatAndMessagesReady = !isDataFetching && chat;
 
 	return (
 		<div className={styles.page}>
 			<div className={styles.chat}>
 				{isActiveChatAndMessagesReady ? (
 					<ChatHeader
-						chat={activeChat}
+						chat={chat}
 						currentUserId={authData.data.id}
 						onClick={() => setIsInfoOpen(true)}
 					/>
@@ -77,11 +76,11 @@ const MessengerChatScreen: FC = () => {
 					ref={messagesContainerElementRef}
 				>
 					{isActiveChatAndMessagesReady ? (
-						activeChatMessages.map((message) => (
+						messages.map((message) => (
 							<MessageRow
 								key={message.id}
 								message={message}
-								chatType={activeChat.type}
+								chatType={chat.type}
 								currentUserId={authData.data.id}
 								onContextMenu={openContextMenu}
 							/>
@@ -103,7 +102,7 @@ const MessengerChatScreen: FC = () => {
 
 				<div className={styles.form}>
 					{isActiveChatAndMessagesReady ? (
-						<SendMessageForm chat={activeChat} />
+						<SendMessageForm chat={chat} />
 					) : (
 						<SendMessageFormSkeleton />
 					)}

@@ -39,4 +39,10 @@
 		will-change: all;
 		z-index: var(--z-index-input-label);
 	}
+
+	&_preventedTopBorder {
+		border-top: none;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
 }

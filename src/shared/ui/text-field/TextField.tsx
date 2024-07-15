@@ -5,9 +5,16 @@ import { ITextFieldProps } from "./TextField.interface";
 import styles from "./TextField.module.scss";
 
 export const TextField = forwardRef<HTMLInputElement, ITextFieldProps>(
-	({ className, label, addonRightElement, ...inputProps }, ref) => {
+	(
+		{ className, label, addonRightElement, shouldPreventTopBorder, ...inputProps },
+		ref
+	) => {
 		return (
-			<div className={cn(styles.field, className)}>
+			<div
+				className={cn(styles.field, className, {
+					[styles.field_preventedTopBorder]: shouldPreventTopBorder
+				})}
+			>
 				<input
 					{...inputProps}
 					id={`input${label}`}

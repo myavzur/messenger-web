@@ -1,43 +1,44 @@
 import { FC } from "react";
 
+import { useActiveChatStore } from "@/entities/chat/stores/active-chat";
+
+import useCopy from "@/shared/lib/hooks/use-copy";
 import { Icon, Menu, MenuItem } from "@/shared/ui";
 
 import { IMessageMenuProps } from "./MessageMenu.interface";
 
-export const MessageMenu: FC<IMessageMenuProps> = () => {
+export const MessageMenu: FC<IMessageMenuProps> = ({ message }) => {
+	const [isCopied, copyToClipboard, setIsCopied] = useCopy();
+
+	const setReplyFor = useActiveChatStore((state) => state.setReplyFor);
+
+	const handleCopy = async () => {
+		if (isCopied) return;
+		await copyToClipboard(message.text as string);
+		setTimeout(() => {
+			setIsCopied(false);
+		}, 500);
+	};
+
 	return (
 		<Menu as="div">
 			<MenuItem
 				leftIconElement={<Icon name="controls/reply" />}
-				onClick={() => alert("Copy")}
+				onClick={() => setReplyFor(message)}
 				aria-label="Reply on message"
 			>
 				Reply
 			</MenuItem>
 
-			<MenuItem
-				leftIconElement={<Icon name="controls/edit" />}
-				onClick={() => alert("Copy")}
-				aria-label="Edit message"
-			>
-				Edit
-			</MenuItem>
-
-			<MenuItem
-				leftIconElement={<Icon name="controls/copy" />}
-				onClick={() => alert("Copy")}
-				aria-label="Copy message text"
-			>
-				Copy
-			</MenuItem>
-
-			<MenuItem
-				leftIconElement={<Icon name="controls/pin" />}
-				onClick={() => alert("Copy")}
-				aria-label="Pin message in chat"
-			>
-				Pin
-			</MenuItem>
+			{message.text && (
+				<MenuItem
+					leftIconElement={<Icon name="controls/copy" />}
+					onClick={handleCopy}
+					aria-label="Copy message text"
+				>
+					{isCopied ? "Copied!" : "Copy"}
+				</MenuItem>
+			)}
 
 			<MenuItem
 				isDangerous={true}

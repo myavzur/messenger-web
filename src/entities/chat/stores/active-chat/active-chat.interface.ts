@@ -1,19 +1,17 @@
 import { IChat, IMessage } from "../../interfaces";
 
-interface IState {
-	activeChat: IChat | null;
-	activeChatMessages: IMessage[];
-	activeChatPinnedMessage: IMessage | null;
+export interface IState {
+	chat: IChat | null;
+	messages: IMessage[];
+	replyFor: IMessage | null;
 }
 
 interface IActions {
-	setActiveChat: (chat: IChat) => void;
-	setActiveChatMessages: (messages: IMessage[]) => void;
-	addActiveChatMessage: (message: IMessage) => void;
-	removeActiveChatMessages: (payload: {
-		chatId: IChat["id"];
-		messageIds: IMessage["id"][];
-	}) => void;
+	setChat: (chat: IChat) => void;
+	setMessages: (messages: IMessage[]) => void;
+	addMessage: (message: IMessage) => void;
+	removeMessages: (payload: { messageIds: IMessage["id"][] }) => void;
+	setReplyFor: (message: IMessage | null) => void;
 }
 
 export type IActiveChatStore = IState & IActions;
