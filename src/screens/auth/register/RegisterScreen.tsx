@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/widgets/auth/register-form/ui";
+import { RegisterForm } from "@/widgets/auth/ui/register-form";
 
 const RegisterScreen = () => {
 	return <RegisterForm />;

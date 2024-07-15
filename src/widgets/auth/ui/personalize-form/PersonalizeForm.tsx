@@ -8,7 +8,7 @@ import { UserTheme, userThemeDictionary } from "@/entities/user/interfaces";
 
 import { Button, ButtonGroup, Icon, TextField } from "@/shared/ui";
 
-import styles from "../../styles/ContentForm.module.scss";
+import styles from "../../styles/Form.module.scss";
 import { IPersonalizeFormProps } from "./PersonalizeForm.interface";
 
 export const PersonalizeForm: FC<IPersonalizeFormProps> = ({ onSubmit, onBack }) => {

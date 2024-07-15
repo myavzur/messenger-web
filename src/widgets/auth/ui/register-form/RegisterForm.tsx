@@ -8,9 +8,9 @@ import { Socials } from "@/entities/auth/ui/socials";
 
 import { Divider } from "@/shared/ui";
 
-import styles from "../styles/ContentForm.module.scss";
+import styles from "../../styles/Form.module.scss";
+import { CredentialsForm } from "../credentials-form";
 import { IRegisterFormProps } from "./RegisterForm.interface";
-import { CredentialsForm } from "./credentials-form";
 
 export const RegisterForm: FC<IRegisterFormProps> = () => {
 	const handleNewData = (

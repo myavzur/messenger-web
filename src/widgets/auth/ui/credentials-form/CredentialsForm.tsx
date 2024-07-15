@@ -5,7 +5,7 @@ import { IRegisterCredentialsBody } from "@/entities/auth/interfaces";
 
 import { Button, TextField } from "@/shared/ui";
 
-import styles from "../../styles/ContentForm.module.scss";
+import styles from "../../styles/Form.module.scss";
 import { ICredentialsFormProps } from "./CredentialsForm.interface";
 
 export const CredentialsForm: FC<ICredentialsFormProps> = ({ onSubmit }) => {
